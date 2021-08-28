@@ -83,21 +83,21 @@ export async function getStaticProps(context) {
   console.log("GET STATIC PROPS CALLED 2");
 
   const webRes = await fetch(
-    `https://john-hashem.vercel.app/api/getWebsiteRecord
+    `https://www.qbv1.com/api/getWebsiteRecord
     `
   );
   let webResults = await webRes.json();
   const { record } = webResults;
 
-  // const serviceRes = await fetch(
-  //   `https://john-hashem.vercel.app/api/getWebsiteServices
-  //   `
-  // );
-  // console.log({ serviceRes });
-  // let serviceResults = await serviceRes.json();
-  // console.log({ serviceResults });
-
+  const serviceRes = await fetch(
+    `https://www.qbv1.com/api/getWebsiteServices
+    `
+  );
+  console.log({ serviceRes });
+  let serviceResults = await serviceRes.json();
+  console.log({ serviceResults });
+  const { services } = serviceResults || [];
   return {
-    props: { record: { id: record.id, ...record.fields } }, // will be passed to the page component as props
+    props: { record: { id: record.id, ...record.fields }, services }, // will be passed to the page component as props
   };
 }
