@@ -69,7 +69,7 @@ export default function Home() {
 }
 
 export async function getStaticProps(context) {
-  console.log("GET STATIC PROPS CALLED");
+  console.log("GET STATIC PROPS CALLED 2");
 
   const res = await fetch(
     `https://john-hashem.vercel.app/api/getWebsiteRecord
