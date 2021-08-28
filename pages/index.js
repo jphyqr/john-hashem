@@ -90,10 +90,11 @@ export async function getStaticProps(context) {
   const { record } = webResults;
 
   const serviceRes = await fetch(
-    `https://john-hashem.vercel.app/api/getWebsiteRecord
+    `https://john-hashem.vercel.app/api/getWebsiteServices
     `
   );
   let serviceResults = await serviceRes.json();
+  console.log({ serviceResults });
   const { services } = serviceResults;
 
   return {
