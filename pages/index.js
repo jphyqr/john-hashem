@@ -3,7 +3,7 @@ import Image from "next/image";
 import SEO from "../layout/seo";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ record }) {
+export default function Home({ record, services }) {
   const {
     seo_site_url,
     seo_title_template,
@@ -11,6 +11,7 @@ export default function Home({ record }) {
     seo_description,
     seo_title,
     h1,
+    description,
   } = record || null;
   const { seo_image } = record || [];
   return (
@@ -25,42 +26,35 @@ export default function Home({ record }) {
         twitterUsername={seo_twitter_username}
       />
       <main className={styles.main}>
-        <h1 className={styles.title}>{h1}</h1>
+        <div className={styles.title}>{h1}</div>
 
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <p className={styles.description}>{description}</p>
 
-        <div className={styles.grid}>
-          <a href='https://nextjs.org/docs' className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <a href='https://nextjs.org/docs' className={styles.card}>
+          <h2>Documentation &rarr;</h2>
+          <p>Find in-depth information about Next.js features and API.</p>
+        </a>
 
-          <a href='https://nextjs.org/learn' className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <a href='https://nextjs.org/learn' className={styles.card}>
+          <h2>Learn &rarr;</h2>
+          <p>Learn about Next.js in an interactive course with quizzes!</p>
+        </a>
 
-          <a
-            href='https://github.com/vercel/next.js/tree/master/examples'
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+        <a
+          href='https://github.com/vercel/next.js/tree/master/examples'
+          className={styles.card}
+        >
+          <h2>Examples &rarr;</h2>
+          <p>Discover and deploy boilerplate example Next.js projects.</p>
+        </a>
 
-          <a
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <a
+          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+          className={styles.card}
+        >
+          <h2>Deploy &rarr;</h2>
+          <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
+        </a>
       </main>
 
       <footer className={styles.footer}>
