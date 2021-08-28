@@ -89,15 +89,15 @@ export async function getStaticProps(context) {
   let webResults = await webRes.json();
   const { record } = webResults;
 
-  const serviceRes = await fetch(
-    `https://john-hashem.vercel.app/api/getWebsiteServices
-    `
-  );
-  let serviceResults = await serviceRes.json();
-  console.log({ serviceResults });
-  const { services } = serviceResults;
+  // const serviceRes = await fetch(
+  //   `https://john-hashem.vercel.app/api/getWebsiteServices
+  //   `
+  // );
+  // console.log({ serviceRes });
+  // let serviceResults = await serviceRes.json();
+  // console.log({ serviceResults });
 
   return {
-    props: { record: { id: record.id, ...record.fields }, services }, // will be passed to the page component as props
+    props: { record: { id: record.id, ...record.fields } }, // will be passed to the page component as props
   };
 }
