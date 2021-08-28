@@ -82,14 +82,21 @@ export default function Home({ record }) {
 export async function getStaticProps(context) {
   console.log("GET STATIC PROPS CALLED 2");
 
-  const res = await fetch(
+  const webRes = await fetch(
     `https://john-hashem.vercel.app/api/getWebsiteRecord
     `
   );
-  let result = await res.json();
-  const { record } = result;
-  console.log({ result });
+  let webResults = await webRes.json();
+  const { record } = webResults;
+
+  const serviceRes = await fetch(
+    `https://john-hashem.vercel.app/api/getWebsiteRecord
+    `
+  );
+  let serviceResults = await serviceRes.json();
+  const { services } = serviceResults;
+
   return {
-    props: { record: { id: record.id, ...record.fields } }, // will be passed to the page component as props
+    props: { record: { id: record.id, ...record.fields }, services }, // will be passed to the page component as props
   };
 }
