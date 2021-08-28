@@ -10,6 +10,7 @@ export default function Home({ record }) {
     seo_twitter_username,
     seo_description,
     seo_title,
+    h1,
   } = record || null;
   const { seo_image } = record || [];
   return (
@@ -24,9 +25,7 @@ export default function Home({ record }) {
         twitterUsername={seo_twitter_username}
       />
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href='https://nextjs.org'>Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>{h1}</h1>
 
         <p className={styles.description}>
           Get started by editing{" "}
