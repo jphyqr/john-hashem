@@ -78,7 +78,7 @@ export default function Home({ record }) {
     </div>
   );
 }
-
+//test
 export async function getStaticProps(context) {
   console.log("GET STATIC PROPS CALLED 2");
 
