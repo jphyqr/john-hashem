@@ -34,7 +34,7 @@ export default function handler(req, res) {
             console.error(err);
             return;
           }
-
+          //test
           base("ServicesCategories")
             .select({
               // Selecting the first 3 records in Grid view:
