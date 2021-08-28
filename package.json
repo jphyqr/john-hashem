@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "airtable": "^0.11.1",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "cuid": "^2.1.8",
+    "dotenv": "^8.2.0",
     "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
