@@ -83,19 +83,19 @@ export async function getStaticProps(context) {
   let webResults = await webRes.json();
   const { record } = webResults;
 
-  // const serviceRes = await fetch(
-  //   `https://www.qbv1.com/api/getWebsiteServices
-  //   `
-  // );
-  // console.log({ serviceRes });
-  // let serviceResults = await serviceRes.json();
-  // console.log({ serviceResults });
-  // const { services, service_categories } = serviceResults || [];
+  const serviceRes = await fetch(
+    `https://www.qbv1.com/api/getWebsiteServices
+    `
+  );
+  console.log({ serviceRes });
+  let serviceResults = await serviceRes.json();
+  console.log({ serviceResults });
+  const { services, service_categories } = serviceResults || [];
   return {
     props: {
       record: { id: record.id, ...record.fields },
-      // services,
-      // service_categories,
+      services,
+      service_categories,
     }, // will be passed to the page component as props
   };
 }
