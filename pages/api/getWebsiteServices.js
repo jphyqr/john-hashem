@@ -6,7 +6,7 @@ var base = new Airtable({ apiKey: keys.airtableKey }).base("app2zJHD2vbTCZ86e");
 export default function handler(req, res) {
   try {
     let services = [];
-    let service_categories = [];
+
     base("Services")
       .select({
         // Selecting the first 3 records in Grid view:
@@ -35,6 +35,7 @@ export default function handler(req, res) {
             return;
           }
           //test
+          let service_categories = [];
           base("ServicesCategories")
             .select({
               // Selecting the first 3 records in Grid view:
