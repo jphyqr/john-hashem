@@ -12,6 +12,7 @@ export default function handler(req, res) {
         res.status(422).send({ error: err });
       }
       console.log("Retrieved", record);
+
       res.status(200).json({ record });
     });
   } catch (error) {
