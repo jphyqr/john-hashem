@@ -90,8 +90,12 @@ export async function getStaticProps(context) {
   console.log({ serviceRes });
   let serviceResults = await serviceRes.json();
   console.log({ serviceResults });
-  const { services } = serviceResults || [];
+  const { services, service_categories } = serviceResults || [];
   return {
-    props: { record: { id: record.id, ...record.fields }, services }, // will be passed to the page component as props
+    props: {
+      record: { id: record.id, ...record.fields },
+      services,
+      service_categories,
+    }, // will be passed to the page component as props
   };
 }

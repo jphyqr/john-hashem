@@ -35,7 +35,7 @@ export default function handler(req, res) {
             return;
           }
 
-          base("ServiceCategories")
+          base("ServicesCategories")
             .select({
               // Selecting the first 3 records in Grid view:
               maxRecords: 300,
