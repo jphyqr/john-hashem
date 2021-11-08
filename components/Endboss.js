@@ -14,6 +14,8 @@ const Endboss = ({
   max,
   scale,
   attack,
+  solidFill,
+  fillColor,
 }) => {
   const n = attributes.length;
   const xHalf = width / 2;
@@ -75,7 +77,7 @@ const Endboss = ({
       label: Object.keys(attr)[0],
     });
   }
-  console.log(points);
+
   return (
     <div className='container'>
       {points.map((p, i) => {
@@ -90,7 +92,8 @@ const Endboss = ({
               left: `${p.maxX + xHalf}px`,
               top: `${p.maxY + yHalf}px`,
               transform: "translateX(-50%)",
-              fontSize: 8,
+              fontSize: 12,
+              fontWeight: "lighter",
             }}
           >
             {p.label}
@@ -106,7 +109,7 @@ const Endboss = ({
               height: (ring / max) * height,
               width: (ring / max) * width,
               border: "2px solid cyan",
-              opacity: 0.5,
+              opacity: 0.2,
               zIndex: 10,
               borderRadius: "100%",
             }}
@@ -147,7 +150,7 @@ const Endboss = ({
 
           <path
             d={generatePath(points)}
-            fill='url(#linear)'
+            fill={solidFill ? fillColor : `url(#linear)`}
             stroke='black'
             strokeWidth={armour}
             zIndex={30}
@@ -160,9 +163,10 @@ const Endboss = ({
           background-color: ${environment};
         }
         .container {
+          margin: 20px;
           position: relative;
-          width: 200px;
-          height: 200px;
+          width: ${width}px;
+          height: ${width}px;
         }
 
         .centered {
