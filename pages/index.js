@@ -3,7 +3,7 @@ import Image from "next/image";
 import SEO from "../layout/seo";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ record, services }) {
+export default function Home({ record, services, service_categories }) {
   const {
     seo_site_url,
     seo_title_template,
@@ -12,6 +12,7 @@ export default function Home({ record, services }) {
     seo_title,
     h1,
     description,
+    web_author,
   } = record || null;
   const { seo_image } = record || [];
   return (
@@ -29,6 +30,28 @@ export default function Home({ record, services }) {
         <div className={styles.title}>{h1}</div>
 
         <p className={styles.description}>{description}</p>
+
+        {service_categories.map((category, i) => {
+          return (
+            <div key={i}>
+              <h2>{category.Name}</h2>
+              {services
+                .filter((s) => s.service_category?.[0] === category.id)
+                .map((service, j) => {
+                  return (
+                    <article
+                      key={j}
+                      href='https://nextjs.org/docs'
+                      className={styles.card}
+                    >
+                      <h2>{service.Name}</h2>
+                      <p>{service.description}</p>
+                    </article>
+                  );
+                })}
+            </div>
+          );
+        })}
 
         <a href='https://nextjs.org/docs' className={styles.card}>
           <h2>Documentation &rarr;</h2>
@@ -63,10 +86,7 @@ export default function Home({ record, services }) {
           target='_blank'
           rel='noopener noreferrer'
         >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-          </span>
+          Created By {web_author}
         </a>
       </footer>
     </div>
@@ -87,10 +107,33 @@ export async function getStaticProps(context) {
     `https://www.qbv1.com/api/getWebsiteServices
     `
   );
-  console.log({ serviceRes });
+
   let serviceResults = await serviceRes.json();
-  console.log({ serviceResults });
+
   const { services, service_categories } = serviceResults || [];
+
+  let sortedCategories = service_categories.sort((a, b) =>
+    a.thread_order > b.thread_order
+      ? 1
+      : a.thread_order < b.thread_order
+      ? -1
+      : 0
+  );
+  let sortedServices = [];
+  for (const cat of sortedCategories) {
+    console.log("sorted category", cat.Name, cat.thread_order);
+    sortedServices = sortedServices.concat(
+      services
+        .filter((s) => s.service_category?.[0] === cat.id)
+        .sort((a, b) =>
+          a.path_order > b.path_order ? 1 : a.path_order < b.path_order ? -1 : 0
+        )
+    );
+  }
+
+  for (const service of sortedServices) {
+    console.log("sorted service", service.Name);
+  }
   return {
     props: {
       record: { id: record.id, ...record.fields },

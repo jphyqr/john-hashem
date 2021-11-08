@@ -25,6 +25,7 @@ const SEO = ({
       title={seo.title}
       titleTemplate={titleTemplate}
     >
+      <link rel='icon' href={image} />
       <meta name='description' content={seo.description} />
       <meta name='image' content={seo.image} />
       {seo.url && <meta property='og:url' content={seo.url} />}

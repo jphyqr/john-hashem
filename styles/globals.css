@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+section {
+  width: 100%;
+}
+
+article {
+  width: 100%;
+}
