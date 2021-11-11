@@ -477,8 +477,7 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          min-height: ${screenHeight}px;
-          max-height: ${screenHeight}px;
+          height: 100vh;
           width: 100vw;
           background-color: red;
           display: flex;
