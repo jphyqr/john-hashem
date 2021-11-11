@@ -93,7 +93,7 @@ const FooterDrawer = () => {
 
   const grabbedItemStyle = useMemo(
     () => ({
-      transform: opened ? "translateY(-100%)" : "translateY(10%)",
+      transform: opened ? "translateY(-100%)" : "translateY(0%)",
     }),
     [opened]
   );
@@ -167,7 +167,7 @@ const FooterDrawer = () => {
             position: absolute;
             background-color: white;
             border-radius: 10px;
-            top: ${screenHeight - 10}px;
+            top: 100%;
             left: 5%;
             display: flex;
             flex-direction: column;
