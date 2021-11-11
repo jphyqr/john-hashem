@@ -204,9 +204,9 @@ const Resume = () => {
 
   return (
     <div className='container safe-bottom'>
-      <ModalWrapper />
+      {/* <ModalWrapper />
       <FooterDrawer />
-      <Dimmer />
+      <Dimmer /> */}
       <SEO
         title={"John Hashem Resume"}
         description={"Software Engineer"}
@@ -477,7 +477,7 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          height: calc(100vh - env(safe-area-inset-bottom));
+          height: ${screenHeight}px;
           width: 100vw;
           background-color: red;
           display: flex;
