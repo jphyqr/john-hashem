@@ -474,8 +474,8 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          height: 100vh;
-
+          min-height: 100vh;
+          max-height: 100vh;
           width: 100vw;
           background-color: ${colors.light};
           display: flex;
@@ -539,6 +539,12 @@ const Resume = () => {
         @media (min-width: 500px) {
           main {
             width: 500px;
+          }
+        }
+
+        @media (max-width: 500px) {
+          .container {
+            height: calc(100vh - 110px);
           }
         }
       `}</style>
