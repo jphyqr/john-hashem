@@ -490,10 +490,6 @@ const Resume = () => {
           overflow: hidden;
         }
 
-        .safe-bottom {
-          padding-bottom: env(safe-area-inset-bottom);
-        }
-
         header {
           display: flex;
           width: 100vw;
