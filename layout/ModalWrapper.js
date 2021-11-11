@@ -7,6 +7,7 @@ import {
 
 import { useRect } from "../hooks/useRect";
 import { CLOSE_MODAL } from "../config/baseReducers/modalReducer";
+import { useScreenWidth } from "../hooks/outsideClick";
 
 const ModalWrapper = () => {
   const node = useRef(null);
@@ -16,6 +17,8 @@ const ModalWrapper = () => {
   const modalComponent = useSelector((state) => state.modal.component);
   const modalProps = useSelector((state) => state.modal.modalProps || {});
   const { singleTextInput } = modalProps || false;
+
+  const [, screenHeight] = useScreenWidth();
   const renderModal = () => {
     let ShowComponent;
 
@@ -90,7 +93,7 @@ const ModalWrapper = () => {
           top: 0;
           left: 0;
           width: 100%;
-          height: 100%;
+          height: ${screenHeight}px;
           background-color: black;
           z-index: ${opened ? 100 : -1};
           opacity: ${opened ? 0.8 : 0};
