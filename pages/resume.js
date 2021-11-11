@@ -480,13 +480,17 @@ const Resume = () => {
           height: 100vh;
           max-height: -webkit-fill-available;
           width: 100vw;
-          background-color: red;
           display: flex;
           flex-direction: column;
 
           color: ${colors.dark};
 
-          position: relative;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
           overflow: hidden;
         }
 
