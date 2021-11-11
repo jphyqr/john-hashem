@@ -260,7 +260,7 @@ const Resume = () => {
                       />
                     </BorderRater>
                   );
-                }, [colors, skill.skill, skill.id]);
+                }, []);
               })}
           </section>
         </article>
