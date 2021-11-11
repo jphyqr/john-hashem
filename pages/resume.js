@@ -477,7 +477,7 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          height: 100vh;
+          height: calc(100vh - env(safe-area-inset-bottom));
           width: 100vw;
           background-color: red;
           display: flex;
