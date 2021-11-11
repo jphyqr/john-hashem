@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SEO from "../layout/seo";
 import Image from "next/image";
 import Endboss from "../components/Endboss";
@@ -244,21 +244,23 @@ const Resume = () => {
 
               .sort((a, b) => b.skill - a.skill)
               .map((skill, i) => {
-                return (
-                  <BorderRater
-                    key={i}
-                    color={colors.bright}
-                    max={1}
-                    value={skill.skill}
-                    width={5}
-                  >
-                    <Image
-                      src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                      height={30}
-                      width={30}
-                    />
-                  </BorderRater>
-                );
+                return useMemo(() => {
+                  return (
+                    <BorderRater
+                      key={i}
+                      color={colors.bright}
+                      max={1}
+                      value={skill.skill}
+                      width={5}
+                    >
+                      <Image
+                        src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                        height={30}
+                        width={30}
+                      />
+                    </BorderRater>
+                  );
+                }, [colors, skill.skill, skill.id]);
               })}
           </section>
         </article>
