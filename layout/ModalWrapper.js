@@ -40,18 +40,6 @@ const ModalWrapper = () => {
     return <div></div>;
   };
 
-  useEffect(() => {
-    const disableOutsideClicks = () => {
-      dispatch({ type: DISABLE_OUTSIDE_CLICK });
-    };
-    const enableOutsideClicks = () => {
-      dispatch({ type: CLEAR_BLOCKER });
-    };
-    console.log("OPENED CHANGED");
-    if (opened) disableOutsideClicks();
-    else enableOutsideClicks();
-  }, [opened]);
-
   // const [_isolated, setIsolated] = useState(false);
 
   // useEffect(() => {
@@ -72,42 +60,20 @@ const ModalWrapper = () => {
 
   return (
     <div className='modal-wrapper-container'>
-      <div
-        onClick={() => {
-          // onClose();
-          dispatch({ type: CLOSE_MODAL });
-          dispatch({ type: CLEAR_BLOCKER });
-
-          //  onClose && onClose();
-        }}
-        className={"dimmer"}
-      />
-
-      <div className='content' ref={node}>
-        {renderModal()}
-      </div>
+      {renderModal()}
 
       <style jsx>{`
-        .dimmer {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: ${screenHeight}px;
-          background-color: black;
-          z-index: ${opened ? 100 : -1};
-          opacity: ${opened ? 0.8 : 0};
-          transition: 0.5s all ease;
-        }
         .modal-wrapper-container {
-          width: 100%;
-          height: 100%;
+          width: 90%;
+          background-color: white;
+          height: ${singleTextInput ? "25" : "75"}%;
+          overflow-y: scroll;
           position: absolute;
-          left: 0;
-          top: 0;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           z-index: ${opened ? 100 : -1};
           opacity: ${opened ? 1 : 0};
-          height: 100%;
 
           display: flex;
           flex-direction: column;

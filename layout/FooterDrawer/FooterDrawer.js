@@ -13,7 +13,7 @@ const FooterDrawer = () => {
   const [, screenHeight] = useScreenWidth();
   const closeRef = useRef();
   const loading = useSelector((state) => state.footerDrawer.loading || false);
-  useOutsideClick(closeRef, () => dispatch({ type: CLOSE_FOOTER_DRAWER }));
+
   const opened = useSelector((state) => state.footerDrawer?.opened || false);
   const component = useSelector(
     (state) => state.footerDrawer.component || null
