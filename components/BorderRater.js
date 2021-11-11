@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 
 const BorderRater = ({ children: child, max, value, width = 1, color }) => {
-  const childRef = useRef(child);
   const percentage = (value / max) * 100;
 
   const p =
