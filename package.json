@@ -9,16 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@notionhq/client": "^0.4.6",
     "airtable": "^0.11.1",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
-    "next": "11.1.0",
+    "next": "10.x",
+    "next-redux-wrapper": "^5.0.0",
+    "notion-client": "^4.11.1",
+    "notion-page-to-html": "^1.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-helmet": "^6.1.0",
-    "react-qr-code": "^2.0.2"
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",

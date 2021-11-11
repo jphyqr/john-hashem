@@ -16,6 +16,8 @@ const Endboss = ({
   attack,
   solidFill,
   fillColor,
+  showLabels,
+  onExpandClick,
 }) => {
   const n = attributes.length;
   const xHalf = width / 2;
@@ -80,26 +82,32 @@ const Endboss = ({
 
   return (
     <div className='container'>
-      {points.map((p, i) => {
-        return (
-          <div
-            className={`${p.chargeFor ? "charge" : ""} ${
-              p.workingOn ? "working" : ""
-            }   ${p.partnering ? "partnering" : ""}`}
-            style={{
-              position: "absolute",
-              color: "white",
-              left: `${p.maxX + xHalf}px`,
-              top: `${p.maxY + yHalf}px`,
-              transform: "translateX(-50%)",
-              fontSize: 12,
-              fontWeight: "lighter",
-            }}
-          >
-            {p.label}
-          </div>
-        );
-      })}
+      {onExpandClick && (
+        <button className='expand-click' onClick={onExpandClick}>
+          🔼
+        </button>
+      )}
+      {showLabels &&
+        points.map((p, i) => {
+          return (
+            <div
+              className={`${p.chargeFor ? "charge" : ""} ${
+                p.workingOn ? "working" : ""
+              }   ${p.partnering ? "partnering" : ""}`}
+              style={{
+                position: "absolute",
+                color: "white",
+                left: `${p.maxX * 0.75 + xHalf}px`,
+                top: `${p.maxY * 0.75 + yHalf}px`,
+                transform: "translateX(-50%)",
+                fontSize: 12,
+                fontWeight: "lighter",
+              }}
+            >
+              {p.label}
+            </div>
+          );
+        })}
 
       {scale.map((ring, i) => {
         return (
@@ -134,7 +142,7 @@ const Endboss = ({
         <svg style={{ width: width, height: height }}>
           <defs>
             <linearGradient id='linear' x1='0%' y1='0%' x2='100%' y2='100%'>
-              {race.map((gene, i) => {
+              {race?.map((gene, i) => {
                 return (
                   <stop
                     key={i}
@@ -153,7 +161,6 @@ const Endboss = ({
             fill={solidFill ? fillColor : `url(#linear)`}
             stroke='black'
             strokeWidth={armour}
-            zIndex={30}
             style={{ padding: 0, margin: 0 }}
           />
         </svg>
@@ -163,7 +170,7 @@ const Endboss = ({
           background-color: ${environment};
         }
         .container {
-          margin: 20px;
+          margin: ${showLabels ? "20" : "0"}px;
           position: relative;
           width: ${width}px;
           height: ${width}px;
@@ -199,6 +206,11 @@ const Endboss = ({
           color: gold;
           position: absolute;
           bottom: -20px;
+        }
+        .expand-click {
+          position: absolute;
+          bottom: 2px;
+          right: 2px;
         }
       `}</style>
     </div>

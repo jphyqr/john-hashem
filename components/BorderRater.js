@@ -2,13 +2,14 @@ import React, { useRef } from "react";
 
 const BorderRater = ({ children: child, max, value, width = 1, color }) => {
   const childRef = useRef(child);
+  const percentage = (value / max) * 100;
 
-  const degree = (value / max) * 360;
-  const p = (18 / 5) * (value / max) * 100 - 90;
-  console.log(p);
+  const p =
+    percentage <= 50 ? (18 / 5) * percentage - 90 : (18 / 5) * percentage - 270;
+  console.log("for", value, "p:", p);
   return (
     <div className='border-rater'>
-      <div className={`circle-border ${degree > 270 ? "over270" : ""} `} />
+      <div className={`${percentage > 50 ? "over50" : "circle-border "} `} />
       <div className='child'>{child}</div>
 
       <style jsx>{`
@@ -34,7 +35,7 @@ const BorderRater = ({ children: child, max, value, width = 1, color }) => {
           overflow: hidden;
         }
 
-.circle-border, .over270{
+.circle-border, .over50{
     width: ${child.props.height + 2 * width}px;
     height: ${child.props.height + 2 * width}px;
     display: inline-block;
@@ -48,12 +49,16 @@ padding ${width}px;
               linear-gradient(${p}deg, #f2f2f2 50%, transparent 0),
               linear-gradient(to right, #f2f2f2 50%, ${color} 0);
           }
-        .over270{
+
+
+        .over50{
             background:
             linear-gradient(#ccc,#ccc) content-box,
             linear-gradient(${p}deg, ${color} 50%,transparent 0),
             linear-gradient(to right, #f2f2f2 50%,${color} 0); 
         }
+
+      
       `}</style>
     </div>
   );
