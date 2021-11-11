@@ -200,7 +200,7 @@ const Resume = () => {
   ];
 
   return (
-    <div className='container'>
+    <div className='container safe-bottom'>
       <ModalWrapper />
       <FooterDrawer />
       <Dimmer />
@@ -474,8 +474,7 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          min-height: 100vh;
-          max-height: 100vh;
+          height: 100vh;
           width: 100vw;
           background-color: ${colors.light};
           display: flex;
@@ -485,6 +484,10 @@ const Resume = () => {
 
           position: relative;
           overflow: hidden;
+        }
+
+        .safe-bottom {
+          padding-bottom: env(safe-area-inset-bottom);
         }
 
         header {
@@ -539,12 +542,6 @@ const Resume = () => {
         @media (min-width: 500px) {
           main {
             width: 500px;
-          }
-        }
-
-        @media (max-width: 500px) {
-          .container {
-            height: calc(100vh - 110px);
           }
         }
       `}</style>
