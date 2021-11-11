@@ -26,7 +26,7 @@ const Resume = () => {
   const calculateSecondsOld = () =>
     ((Date.now() - new Date(1987, 4, 15)) / 1000).toFixed(0);
 
-  const [screenWidth] = useScreenWidth();
+  const [screenWidth, screenHeight] = useScreenWidth();
   const [state, setState] = useState({
     secondsOld: calculateSecondsOld(),
   });
@@ -38,7 +38,10 @@ const Resume = () => {
   //     1000
   //   );
   // }, [state.secondsOld]);
-
+  const [f, u] = useState(0);
+  useEffect(() => {
+    u(f + 1);
+  }, [screenWidth, screenHeight]);
   const projects = [
     {
       displayName: "Layerate",
@@ -476,7 +479,7 @@ const Resume = () => {
         .container {
           height: 100vh;
           width: 100vw;
-          background-color: ${colors.light};
+          background-color: red;
           display: flex;
           flex-direction: column;
 
