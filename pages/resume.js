@@ -252,6 +252,7 @@ const Resume = () => {
                         src={`/${skill.id}.png` || `/${skill.id}.jpg`}
                         height={30}
                         width={30}
+                        style={{ borderRadius: 50 }}
                       />
                     );
                   }}
