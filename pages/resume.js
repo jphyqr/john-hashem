@@ -246,13 +246,16 @@ const Resume = () => {
                   max={1}
                   value={skill.skill}
                   width={5}
-                >
-                  <img
-                    src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                    height={30}
-                    width={30}
-                  />
-                </MemoBorderRater>
+                  child={() => {
+                    return (
+                      <img
+                        src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                        height={30}
+                        width={30}
+                      />
+                    );
+                  }}
+                ></MemoBorderRater>
               );
             })}
           </section>

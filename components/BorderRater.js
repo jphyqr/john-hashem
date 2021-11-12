@@ -1,18 +1,43 @@
 import e from "cors";
 import React, { useMemo, useRef } from "react";
+import { useRect } from "../hooks/useRect";
 
-const BorderRater = ({ children: child, max, value, width = 1, color }) => {
+const BorderRater = ({ child, max, value, width = 1, color }) => {
   console.log("BORDER RATER RENDERED");
   const percentage = (value / max) * 100;
 
   const p =
     percentage <= 50 ? (18 / 5) * percentage - 90 : (18 / 5) * percentage - 270;
   console.log("for", value, "p:", p);
+  const childRef = useRef(null);
+  const childRect = useRect(childRef);
+  const renderChild = () => {
+    let ShowComponent;
+
+    //  if (!_.isEmpty(modalComponent)) {
+    if (child) {
+      ShowComponent = child;
+      return <ShowComponent />;
+    }
+
+    //    }
+
+    // if (profile.isLoaded && !profile.isEmpty)
+    //   Object.keys(verificationMap).map((modal) => {
+    //     if (!profile[`${modal}`]) {
+    //       dispatch({ type: SET_MODAL, payload: modals[`${modal}`] });
+    //     }
+    //   });
+
+    return <div></div>;
+  };
 
   return (
     <div className='border-rater'>
       <div className={`${percentage > 50 ? "over50" : "circle-border "} `} />
-      <div className='child'>{child}</div>
+      <div ref={childRef} className='child'>
+        {renderChild()}
+      </div>
 
       <style jsx>{`
   
@@ -22,14 +47,13 @@ const BorderRater = ({ children: child, max, value, width = 1, color }) => {
           border-radius: 50%;
           overflow: hidden;
           position: relative;
-          min-height: ${child.props.height + 2 * width}px;
-          min-width: ${child.props.width + 2 * width}px;
+          min-height: ${childRect.height + 2 * width}px;
+          min-width: ${childRect.width + 2 * width}px;
         }
 
         .child {
           position: absolute;
-          height: ${child.props.height}px;
-          width: ${child.props.width}px;
+      
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -38,8 +62,8 @@ const BorderRater = ({ children: child, max, value, width = 1, color }) => {
         }
 
 .circle-border, .over50{
-    width: ${child.props.height + 2 * width}px;
-    height: ${child.props.height + 2 * width}px;
+    width: ${childRect.height + 2 * width}px;
+    height: ${childRect.height + 2 * width}px;
     display: inline-block;
     border-radius: 50%;
 padding ${width}px;
