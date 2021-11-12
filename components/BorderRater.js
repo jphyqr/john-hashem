@@ -2,7 +2,14 @@ import e from "cors";
 import React, { useMemo, useRef } from "react";
 import { useRect } from "../hooks/useRect";
 
-const BorderRater = ({ child, max, value, width = 1, color }) => {
+const BorderRater = ({
+  child,
+  max,
+  value,
+  width = 1,
+  color,
+  classNames = [],
+}) => {
   console.log("BORDER RATER RENDERED");
   const percentage = (value / max) * 100;
 
@@ -33,7 +40,11 @@ const BorderRater = ({ child, max, value, width = 1, color }) => {
   };
 
   return (
-    <div className='border-rater'>
+    <div
+      className={`border-rater ${classNames
+        .reduce((prev, cur) => `${prev} ${cur}`, "")
+        .trim()}`}
+    >
       <div className={`${percentage > 50 ? "over50" : "circle-border "} `} />
       <div ref={childRef} className='child'>
         {renderChild()}

@@ -240,23 +240,25 @@ const Resume = () => {
           <section className='row slider'>
             {skills.map((skill, i) => {
               return (
-                <BorderRater
-                  key={i}
-                  color={colors.bright}
-                  max={1}
-                  value={skill.skill}
-                  width={5}
-                  child={() => {
-                    return (
-                      <MemoImage
-                        src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                        height={30}
-                        width={30}
-                        style={{ borderRadius: 50 }}
-                      />
-                    );
-                  }}
-                ></BorderRater>
+                <div className='slider-child'>
+                  <BorderRater
+                    key={i}
+                    color={colors.bright}
+                    max={1}
+                    value={skill.skill}
+                    width={5}
+                    child={() => {
+                      return (
+                        <MemoImage
+                          src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                          height={30}
+                          width={30}
+                          style={{ borderRadius: 50 }}
+                        />
+                      );
+                    }}
+                  ></BorderRater>
+                </div>
               );
             })}
           </section>
@@ -265,7 +267,7 @@ const Resume = () => {
         <article>
           <h4>Skill</h4>
           <section className='row slider'>
-            <article className='card'>
+            <article className='card slider-child'>
               <h4>Tech Skill</h4>
               <Endboss
                 onExpandClick={() => {
@@ -381,39 +383,20 @@ const Resume = () => {
           <div className='row slider'>
             {projects?.map((project, i) => {
               return (
-                <article key={i} className='card'>
+                <article
+                  key={i}
+                  className='card clickable slider-child'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
                   <h2>{project.displayName}</h2>
                   <h3>{project.solution}</h3>
-
-                  <button
-                    onClick={() =>
-                      dispatch({
-                        type: OPEN_MODAL,
-                        component: () => <JobRecord record={project} />,
-                      })
-                    }
-                  >
-                    More
-                  </button>
-                  <button
-                    disabled={!project.retro}
-                    onClick={() => window.open(project.retro)}
-                  >
-                    Retro
-                  </button>
-                  <button
-                    disabled={!project.url}
-                    onClick={
-                      project.mobileOnly && screenWidth > 500
-                        ? () =>
-                            window.alert(
-                              "Visit layerate.vercel.app on a mobile device"
-                            )
-                        : () => window.open(project.url)
-                    }
-                  >
-                    App
-                  </button>
+                  <div className='grow' />
+                  <button>More</button>
                 </article>
               );
             })}
@@ -426,6 +409,10 @@ const Resume = () => {
         .row-header {
           background-color: yellow;
           width: 50px;
+        }
+
+        .clickable {
+          box-shadow: 1px 1px 2px 2px grey;
         }
         .flex-slider {
           display: flex;
@@ -445,7 +432,8 @@ const Resume = () => {
           min-height: 0;
         }
         section {
-          background-color: ${colors.medium};
+          background-color: ${colors.light};
+          padding: 5px;
         }
 
         button {
@@ -514,10 +502,15 @@ const Resume = () => {
         .card {
           display: flex;
           flex-direction: column;
-
+          min-width: 75px;
+          height: 125px;
           margin-right: 10px;
           padding: 5px;
           background-color: ${colors.light};
+        }
+
+        .grow {
+          flex-grow: 1;
         }
 
         .card:last-child {
@@ -533,6 +526,10 @@ const Resume = () => {
           padding: 5px;
           width: 100%;
           overflow-x: scroll;
+        }
+
+        .slider-child {
+          margin-right: 10px;
         }
 
         .wrap {

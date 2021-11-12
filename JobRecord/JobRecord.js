@@ -8,9 +8,16 @@ const JobRecord = ({ record = {} }) => {
       <hgroup>
         <h1>{record.displayName}</h1>
         <h2>{record.solution}</h2>
-        <a href={record.url} target='_blank'>
-          Visit App
-        </a>
+
+        <ul>
+          <a href={record.url} target='_blank'>
+            <li> Visit App</li>
+          </a>
+
+          <a href={record.retro} target='_blank'>
+            <li> Retro</li>
+          </a>
+        </ul>
       </hgroup>
       <hr />
       <section className='benefits'>
@@ -58,6 +65,11 @@ const JobRecord = ({ record = {} }) => {
         .job-record {
           display: flex;
           flex-direction: column;
+        }
+
+        a {
+          text-decoration: underline;
+          color: blue;
         }
       `}</style>
     </article>
