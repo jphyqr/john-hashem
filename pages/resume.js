@@ -452,13 +452,15 @@ const Resume = () => {
         }
         .container {
           height: -webkit-fill-available;
+          max-height: 100vh;
+          overflow: hidden;
           width: 100vw;
           display: flex;
           flex-direction: column;
 
           color: ${colors.dark};
 
-          position: fixed;
+          position: absolute;
           top: 0;
           left: 0;
           right: 0;
