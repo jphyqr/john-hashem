@@ -247,8 +247,7 @@ const Resume = () => {
                   value={skill.skill}
                   width={5}
                 >
-                  <Image
-                    loading='eager'
+                  <img
                     src={`/${skill.id}.png` || `/${skill.id}.jpg`}
                     height={30}
                     width={30}
