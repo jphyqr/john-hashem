@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from "react";
 
 const BorderRater = ({ children: child, max, value, width = 1, color }) => {
+  console.log("BORDER RATER RENDERED");
   const percentage = (value / max) * 100;
 
   const p =
@@ -9,11 +10,7 @@ const BorderRater = ({ children: child, max, value, width = 1, color }) => {
   return (
     <div className='border-rater'>
       <div className={`${percentage > 50 ? "over50" : "circle-border "} `} />
-      <div className='child'>
-        {useMemo(() => {
-          return child;
-        }, [])}
-      </div>
+      <div className='child'>{child}</div>
 
       <style jsx>{`
   
