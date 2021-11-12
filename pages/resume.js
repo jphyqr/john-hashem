@@ -202,6 +202,12 @@ const Resume = () => {
     },
   ];
 
+  const MemoImage = (props) => {
+    return useMemo(() => {
+      return <Image {...props} />;
+    }, []);
+  };
+
   return (
     <div className='container safe-bottom'>
       <ModalWrapper />
@@ -253,7 +259,7 @@ const Resume = () => {
                       value={skill.skill}
                       width={5}
                     >
-                      <Image
+                      <MemoImage
                         src={`/${skill.id}.png` || `/${skill.id}.jpg`}
                         height={30}
                         width={30}
