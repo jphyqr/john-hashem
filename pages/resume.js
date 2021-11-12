@@ -472,8 +472,7 @@ const Resume = () => {
           overflow: hidden;
         }
         .container {
-          height: 100vh;
-          height: height: -webkit-fill-available;
+          height: -webkit-fill-available;
           width: 100vw;
           display: flex;
           flex-direction: column;
