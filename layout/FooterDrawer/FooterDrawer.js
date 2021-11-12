@@ -1,4 +1,5 @@
 import React, {
+  createRef,
   useCallback,
   useEffect,
   useMemo,
@@ -38,7 +39,17 @@ const FooterDrawer = () => {
     yStart: null,
     dragging: false,
   });
-  const handleTouchStart = useCallback(({ touches }) => {
+  const handleTouchStart = useCallback((props) => {
+    const { touches, target } = props;
+
+    console.log("class name", target);
+
+    // if (target.contains("dimmer")) {
+    //   dispatch({
+    //     type: CLOSE_FOOTER_DRAWER,
+    //   });
+    // }
+
     const touch = touches[0];
 
     console.log("handleTouchStart", touch);
@@ -99,7 +110,11 @@ const FooterDrawer = () => {
   );
 
   return (
-    <div ref={closeRef} style={grabbedItemStyle} className='container'>
+    <div
+      ref={closeRef}
+      style={grabbedItemStyle}
+      className='footer-drawer-container'
+    >
       <div className='stacker'>
         {loading && <div className='dimmer' />}
         {loading && <div className='spinner' />}
@@ -156,11 +171,16 @@ const FooterDrawer = () => {
             z-index: 2;
           }
           .component-container {
-            width: 100%;
-
             transition: 0.5s ease;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
           }
-          .container {
+          .footer-drawer-container {
             height: ${screenHeight - top - 10}px;
             width: 90%;
 
@@ -170,9 +190,7 @@ const FooterDrawer = () => {
             top: 100%;
             left: 5%;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
+
             transition: 0.5s ease;
             z-index: 35;
             overflow-y: scroll;

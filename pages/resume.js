@@ -132,7 +132,45 @@ const Resume = () => {
     PRODUCTIVITY: "Productivity",
     WEB_DEVELOPMENT: "Web Development",
   };
+
   const skills = [
+    {
+      title: "Soft Skills",
+      skills: [
+        { communication: 90 },
+        { collaboration: 40 },
+        { "time management": 60 },
+        { eq: 95 },
+        { accountability: 80 },
+        { "people skills": 100 },
+
+        { problemsolving: 90 },
+        { resilience: 60 },
+      ],
+    },
+    {
+      title: "Programming Skills",
+      skills: [
+        { speed: 90 },
+        { documenting: 30 },
+        { custodian: 50 },
+
+        { courage: 70 },
+      ],
+    },
+    {
+      title: "Product Skills",
+      skills: [
+        { validating: 70 },
+        { documenting: 70 },
+        { visualization: 90 },
+        { "user empathy": 50 },
+        { "idea creation": 100 },
+        { resilience: 20 },
+      ],
+    },
+  ];
+  const tools = [
     { skill_type: skill_types.PRODUCTIVITY, id: "airtable", skill: 0.9 },
     { skill_type: skill_types.WEB_DEVELOPMENT, id: "next", skill: 0.8 },
     { skill_type: skill_types.WEB_DEVELOPMENT, id: "react", skill: 0.8 },
@@ -229,7 +267,7 @@ const Resume = () => {
         </div> */}
         <article>
           <hgroup>
-            <h1>John Hashem</h1> <h3>{state.secondsOld} seconds old</h3>
+            <h1>John Hashem</h1>
           </hgroup>
         </article>
       </header>
@@ -238,7 +276,7 @@ const Resume = () => {
         <article>
           <h4>Tool Belt</h4>
           <section className='row slider'>
-            {skills.map((skill, i) => {
+            {tools.map((skill, i) => {
               return (
                 <div className='slider-child'>
                   <BorderRater
@@ -267,112 +305,51 @@ const Resume = () => {
         <article>
           <h4>Skill</h4>
           <section className='row slider'>
-            <article className='card slider-child'>
-              <h4>Tech Skill</h4>
-              <Endboss
-                onExpandClick={() => {
-                  dispatch({
-                    type: OPEN_FOOTER_DRAWER,
-                    component: () => (
-                      <Endboss
-                        height={300}
-                        width={300}
-                        showLabels={true}
-                        max={100}
-                        solidFill
-                        environment={"black"}
-                        fillColor={colors.bright}
-                        scale={[10, 20, 30, 40, 50, 75, 90, 100]}
-                        attributes={[
-                          { speed: 90 },
-                          { documenting: 30 },
-                          { educating: 60 },
-
-                          { problemsolving: 80 },
-                          { resilience: 20 },
-                        ]}
-                      />
-                    ),
-                  });
-                }}
-                key={"endboss"}
-                alignment={"evil"}
-                height={150}
-                width={150}
-                max={100}
-                solidFill
-                fillColor={colors.bright}
-                // attack={attack[randomIntFromInterval(0, 3)]}
-                scale={[10, 20, 30, 40, 50, 75, 90, 100]}
-                attributes={[
-                  { speed: 90 },
-                  { documenting: 30 },
-                  { educating: 60 },
-
-                  { problemsolving: 80 },
-                  { resilience: 20 },
-                ]}
-                size={100}
-                armour={1}
-                race={[
-                  {
-                    percent: 50,
-                    color: "silver",
-                  },
-                  {
-                    percent: 25,
-                    color: "black",
-                  },
-                  {
-                    percent: 25,
-                    color: "orange",
-                  },
-                ]}
-                environment={"black"}
-              />{" "}
-            </article>
-
-            <article className='card'>
-              <h4>Product Skill</h4>
-              <Endboss
-                key={"endboss"}
-                alignment={"evil"}
-                height={150}
-                width={150}
-                max={100}
-                solidFill
-                fillColor={colors.bright}
-                // attack={attack[randomIntFromInterval(0, 3)]}
-                scale={[10, 20, 30, 40, 50, 75, 90, 100]}
-                attributes={[
-                  { copywriting: 40 },
-                  { storytelling: 70 },
-                  { empathy: 60 },
-                  { lofi: 100 },
-                  { hifi: 30 },
-                  { analytics: 80 },
-
-                  { shipping: 90 },
-                ]}
-                size={100}
-                armour={1}
-                race={[
-                  {
-                    percent: 50,
-                    color: "silver",
-                  },
-                  {
-                    percent: 25,
-                    color: "black",
-                  },
-                  {
-                    percent: 25,
-                    color: "orange",
-                  },
-                ]}
-                environment={"black"}
-              />{" "}
-            </article>
+            {skills.map((skill, i) => {
+              return (
+                <div className='slider-child clickable'>
+                  <Endboss
+                    onExpandClick={(props) => {
+                      dispatch({
+                        type: OPEN_FOOTER_DRAWER,
+                        component: () => (
+                          <Endboss fill showLabels={true} {...props} />
+                        ),
+                      });
+                    }}
+                    title={skill.title}
+                    key={"endboss"}
+                    alignment={"evil"}
+                    height={150}
+                    width={150}
+                    max={100}
+                    solidFill
+                    fillColor={colors.bright}
+                    // attack={attack[randomIntFromInterval(0, 3)]}
+                    scale={[10, 20, 30, 40, 50, 75, 90, 100]}
+                    attributes={skill.skills}
+                    size={100}
+                    armour={0}
+                    ringColor={colors.light}
+                    race={[
+                      {
+                        percent: 50,
+                        color: "silver",
+                      },
+                      {
+                        percent: 25,
+                        color: "black",
+                      },
+                      {
+                        percent: 25,
+                        color: "orange",
+                      },
+                    ]}
+                    environment={colors.deep}
+                  />{" "}
+                </div>
+              );
+            })}
           </section>
         </article>
 
@@ -385,7 +362,7 @@ const Resume = () => {
               return (
                 <article
                   key={i}
-                  className='card clickable slider-child'
+                  className=' clickable slider-child card'
                   onClick={() =>
                     dispatch({
                       type: OPEN_MODAL,
@@ -395,8 +372,6 @@ const Resume = () => {
                 >
                   <h2>{project.displayName}</h2>
                   <h3>{project.solution}</h3>
-                  <div className='grow' />
-                  <button>More</button>
                 </article>
               );
             })}
@@ -412,7 +387,19 @@ const Resume = () => {
         }
 
         .clickable {
-          box-shadow: 1px 1px 2px 2px grey;
+          box-shadow: 2px 2px 1px 1px grey;
+          position: relative;
+        }
+
+        .clickable:before {
+          content: "↗";
+          background-color: ${colors.light};
+
+          opacity: 0.5;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          z-index: 1;
         }
         .flex-slider {
           display: flex;
@@ -499,16 +486,6 @@ const Resume = () => {
           width: 100%;
         }
 
-        .card {
-          display: flex;
-          flex-direction: column;
-          min-width: 75px;
-          height: 125px;
-          margin-right: 10px;
-          padding: 5px;
-          background-color: ${colors.light};
-        }
-
         .grow {
           flex-grow: 1;
         }
@@ -523,17 +500,49 @@ const Resume = () => {
         }
 
         .slider {
-          padding: 5px;
           width: 100%;
           overflow-x: scroll;
+          display: flex;
+          padding-top: 10px;
+          padding-bottom: 10px;
         }
 
         .slider-child {
           margin-right: 10px;
+          height: 100%;
         }
 
         .wrap {
           flex-wrap: wrap;
+        }
+
+        .card > button {
+          font-size: 12px;
+          padding: 3px 6px 3px 6px;
+          background-color: ${colors.light};
+        }
+        .slider > .card {
+          background-color: ${colors.bright};
+        }
+        h2 ~ h3 {
+          margin-top: 10px;
+        }
+        .card > h2 {
+          font-size: 12px;
+        }
+        .card > h3 {
+          font-size: 10px;
+          font-weight: lighter;
+        }
+
+        .card {
+          display: flex;
+          flex-direction: column;
+          min-width: 75px;
+          height: 100px;
+          margin-right: 10px;
+          padding: 5px;
+          background-color: ${colors.light};
         }
 
         @media (min-width: 500px) {

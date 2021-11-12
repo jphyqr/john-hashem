@@ -35,7 +35,7 @@ const Dimmer = () => {
           width: 100%;
           background-color: black;
           opacity: ${rightDrawerOpened || footerDrawerOpened || modalOpened
-            ? 0.6
+            ? 0.8
             : 0};
           z-index: ${rightDrawerOpened || footerDrawerOpened || modalOpened
             ? 4

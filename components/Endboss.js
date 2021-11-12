@@ -1,53 +1,85 @@
 import _, { each } from "lodash";
 import withRouter from "next/dist/client/with-router";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useScreenWidth } from "../hooks/outsideClick";
 
-const Endboss = ({
-  alignment,
-  attributes,
-  race,
-  height,
-  width,
-  size,
-  armour,
-  environment,
-  max,
-  scale,
-  attack,
-  solidFill,
-  fillColor,
-  showLabels,
-  onExpandClick,
-}) => {
+const Endboss = (props) => {
+  const {
+    alignment,
+    attributes,
+    race,
+    height,
+    width,
+    fill,
+    size,
+    armour,
+    environment,
+    max,
+    scale,
+    attack,
+    solidFill,
+    fillColor,
+    showLabels,
+    onExpandClick,
+    centered,
+    ringColor,
+
+    title,
+  } = props;
   const n = attributes.length;
-  const xHalf = width / 2;
-  const yHalf = height / 2;
+  const bossRef = useRef(null);
+
+  useEffect(() => {
+    if (!bossRef?.current) return;
+
+    console.log(
+      "bossRef",
+      bossRef.current.parentElement,
+      bossRef.current.parentElement.offsetHeight,
+      bossRef.current.parentElement.offsetWidth
+    );
+    setParentsSide(
+      Math.min(
+        bossRef.current.parentElement.offsetHeight,
+        bossRef.current.parentElement.offsetWidth
+      )
+    );
+  }, [bossRef?.current]);
+
+  const [_parentsSide, setParentsSide] = useState(0);
+  const [_shortSide, setShortSide] = useState(Math.min(width, height));
+
+  useEffect(() => {}, [_parentsSide]);
+  const sideLength = fill ? _parentsSide : Math.min(width, height);
+
+  const xHalf = sideLength / 2;
+  const yHalf = sideLength / 2;
   const angle = parseFloat(360 / n);
   let points = [];
 
-  const getXOffset = (n, i, width, value) => {
+  const getXOffset = (n, i, sideLength, value) => {
     const final =
-      (((Math.sin((Math.PI / 180) * (angle * i)) * value) / max) * width) / 2;
-    console.log(i, width, value, angle * i, final);
+      (((Math.sin((Math.PI / 180) * (angle * i)) * value) / max) * sideLength) /
+      2;
 
     return final;
   };
 
-  const getYOffset = (n, i, height, value) => {
+  const getYOffset = (n, i, sideLength, value) => {
     const final =
-      (((Math.cos((Math.PI / 180) * (angle * i)) * value) / max) * height) / 2;
+      (((Math.cos((Math.PI / 180) * (angle * i)) * value) / max) * sideLength) /
+      2;
 
     return final;
   };
 
   const generatePath = (points) => {
     const first = points.shift();
-    console.log({ first });
+
     let string = `M ${first.x + xHalf} ${first.y + yHalf} L ${
       first.finalX + xHalf
     } ${first.finalY + yHalf}`;
 
-    console.log("path", points);
     for (const point of points) {
       string =
         string +
@@ -56,7 +88,7 @@ const Endboss = ({
         }`;
     }
     // string = string + ` L ${first.x + xHalf} ${first.y + yHalf}`;
-    console.log("final string", string);
+
     return string;
   };
   for (var i = 0; i < n; i++) {
@@ -65,28 +97,38 @@ const Endboss = ({
     const attr = attributes[i];
     const nextAttr = i == n - 1 ? attributes[0] : attributes[i + 1];
     points.push({
-      x: getXOffset(n, i, width, attr[Object.keys(attr)[0]]),
-      y: getYOffset(n, i, width, attr[Object.keys(attr)[0]]),
-      //   midX: getXOffset(n, nextHalfI, width, size),
-      //   midY: getYOffset(n, nextHalfI, width, size),
+      x: getXOffset(n, i, sideLength, attr[Object.keys(attr)[0]]),
+      y: getYOffset(n, i, sideLength, attr[Object.keys(attr)[0]]),
+      //   midX: getXOffset(n, nextHalfI, sideLength, size),
+      //   midY: getYOffset(n, nextHalfI, sideLength, size),
       chargeFor: attr.chargeFor ? true : false,
       workingOn: attr.workingOn ? true : false,
       partnering: attr.partnering ? true : false,
-      finalX: getXOffset(n, finalI, width, nextAttr[Object.keys(nextAttr)[0]]),
-      finalY: getYOffset(n, finalI, width, nextAttr[Object.keys(nextAttr)[0]]),
-      maxX: getXOffset(n, i, width, 100),
-      maxY: getYOffset(n, i, width, 100),
+      finalX: getXOffset(
+        n,
+        finalI,
+        sideLength,
+        nextAttr[Object.keys(nextAttr)[0]]
+      ),
+      finalY: getYOffset(
+        n,
+        finalI,
+        sideLength,
+        nextAttr[Object.keys(nextAttr)[0]]
+      ),
+      maxX: getXOffset(n, i, sideLength, 100),
+      maxY: getYOffset(n, i, sideLength, 100),
       label: Object.keys(attr)[0],
     });
   }
 
   return (
-    <div className='container'>
-      {onExpandClick && (
-        <button className='expand-click' onClick={onExpandClick}>
-          🔼
-        </button>
-      )}
+    <div
+      ref={bossRef}
+      className='endboss-container'
+      onClick={() => onExpandClick(props)}
+    >
+      {title && <div className='absolute-title'>{title}</div>}
       {showLabels &&
         points.map((p, i) => {
           return (
@@ -114,11 +156,11 @@ const Endboss = ({
           <div
             key={i}
             style={{
-              height: (ring / max) * height,
-              width: (ring / max) * width,
-              border: "2px solid cyan",
+              height: (ring / max) * sideLength,
+              width: (ring / max) * sideLength,
+              border: `2px solid ${ringColor}`,
               opacity: 0.2,
-              zIndex: 10,
+              zIndex: 1,
               borderRadius: "100%",
             }}
             className='size centered'
@@ -127,19 +169,19 @@ const Endboss = ({
       })}
       <div
         style={{
-          height: (size / max) * height,
-          width: (size / max) * width,
-          border: `${armour}px solid red`,
+          height: (size / max) * sideLength,
+          width: (size / max) * sideLength,
+          border: `${armour}px solid ${fillColor}`,
           backgroundColor: attack,
           opacity: 0.5,
-          zIndex: 10,
+          zIndex: 1,
           borderRadius: "100%",
         }}
         className='size centered'
       />
 
       <div className='svg-container'>
-        <svg style={{ width: width, height: height }}>
+        <svg style={{ width: sideLength, height: sideLength }}>
           <defs>
             <linearGradient id='linear' x1='0%' y1='0%' x2='100%' y2='100%'>
               {race?.map((gene, i) => {
@@ -169,11 +211,10 @@ const Endboss = ({
         svg {
           background-color: ${environment};
         }
-        .container {
-          margin: ${showLabels ? "20" : "0"}px;
+        .endboss-container {
           position: relative;
-          width: ${width}px;
-          height: ${width}px;
+          width: ${sideLength}px;
+          height: ${sideLength}px;
         }
 
         .centered {
@@ -211,6 +252,15 @@ const Endboss = ({
           position: absolute;
           bottom: 2px;
           right: 2px;
+        }
+
+        .absolute-title {
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 12px;
+
+          color: white;
         }
       `}</style>
     </div>
