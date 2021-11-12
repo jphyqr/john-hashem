@@ -194,9 +194,9 @@ const Resume = () => {
     },
   ];
 
-  const MemoBorderRater = (props) => {
+  const MemoImage = (props) => {
     return useMemo(() => {
-      return <BorderRater {...props} />;
+      return <img {...props} />;
     }, []);
   };
 
@@ -240,7 +240,7 @@ const Resume = () => {
           <section className='row slider'>
             {skills.map((skill, i) => {
               return (
-                <MemoBorderRater
+                <BorderRater
                   key={i}
                   color={colors.bright}
                   max={1}
@@ -248,14 +248,14 @@ const Resume = () => {
                   width={5}
                   child={() => {
                     return (
-                      <img
+                      <MemoImage
                         src={`/${skill.id}.png` || `/${skill.id}.jpg`}
                         height={30}
                         width={30}
                       />
                     );
                   }}
-                ></MemoBorderRater>
+                ></BorderRater>
               );
             })}
           </section>
