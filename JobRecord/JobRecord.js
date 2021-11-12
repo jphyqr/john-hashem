@@ -64,6 +64,7 @@ const JobRecord = ({ record = {} }) => {
 
         .job-record {
           display: flex;
+          height: 100%;
           flex-direction: column;
         }
 

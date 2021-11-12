@@ -417,6 +417,7 @@ const Resume = () => {
         section,
         article {
           min-height: 0;
+          display: table;
         }
         section {
           background-color: ${colors.light};
@@ -484,8 +485,11 @@ const Resume = () => {
 
           display: flex;
           flex-direction: column;
-          height: 100%;
+
+          height: -webkit-fill-available;
+          max-height: 100vh;
           width: 100%;
+          overflow-y: scroll;
         }
 
         .grow {

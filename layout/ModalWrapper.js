@@ -71,6 +71,7 @@ const ModalWrapper = () => {
           position: absolute;
           left: 50%;
           top: 50%;
+
           transform: translate(-50%, -50%);
           z-index: ${opened ? 100 : -1};
           opacity: ${opened ? 1 : 0};
@@ -97,29 +98,19 @@ const ModalWrapper = () => {
           padding: 10px;
         }
 
-        .content {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          aign-items: center;
-          background-color: white;
-          height: ${singleTextInput ? "25" : "75"}%;
-          width: 90%;
-          justify-content: center;
-          transition: 0.4s linear;
-          z-index: ${opened ? 100 : -1};
-          opacity: ${opened ? 1 : 0};
-          margin-top: ${singleTextInput ? 30 : 0}px;
-          transition: 0.5s all ease;
-          overflow-y: scroll;
-        }
-
         @keyframes push-up {
           0% {
             transform: translateY(0);
           }
           100% {
             transform: translateY(200px);
+          }
+        }
+
+        @media screen and (orientation: landscape) {
+          .modal-wrapper-container {
+            height: 90%;
+            width: 75%;
           }
         }
       `}</style>
