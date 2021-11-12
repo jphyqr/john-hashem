@@ -1,3 +1,4 @@
+import e from "cors";
 import React, { useMemo, useRef } from "react";
 
 const BorderRater = ({ children: child, max, value, width = 1, color }) => {
@@ -7,10 +8,18 @@ const BorderRater = ({ children: child, max, value, width = 1, color }) => {
   const p =
     percentage <= 50 ? (18 / 5) * percentage - 90 : (18 / 5) * percentage - 270;
   console.log("for", value, "p:", p);
+
+  const MemoChild = () => {
+    return useMemo(() => {
+      return child;
+    }, []);
+  };
   return (
     <div className='border-rater'>
       <div className={`${percentage > 50 ? "over50" : "circle-border "} `} />
-      <div className='child'>{child}</div>
+      <div className='child'>
+        <MemoChild />
+      </div>
 
       <style jsx>{`
   

@@ -252,19 +252,19 @@ const Resume = () => {
               .map((skill, i) => {
                 return useMemo(() => {
                   return (
-                    // <BorderRater
-                    //   key={i}
-                    //   color={colors.bright}
-                    //   max={1}
-                    //   value={skill.skill}
-                    //   width={5}
-                    // >
-                    <MemoImage
-                      src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                      height={30}
-                      width={30}
-                    />
-                    // </BorderRater>
+                    <BorderRater
+                      key={i}
+                      color={colors.bright}
+                      max={1}
+                      value={skill.skill}
+                      width={5}
+                    >
+                      <MemoImage
+                        src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                        height={30}
+                        width={30}
+                      />
+                    </BorderRater>
                   );
                 }, []);
               })}
