@@ -382,7 +382,6 @@ const Resume = () => {
       <footer></footer>
       <style jsx>{`
         .row-header {
-          background-color: yellow;
           width: 50px;
         }
 
@@ -488,8 +487,9 @@ const Resume = () => {
 
           height: -webkit-fill-available;
           max-height: 100vh;
-          width: 100%;
+
           overflow-y: scroll;
+          overflow-x: hidden;
         }
 
         .grow {
@@ -506,7 +506,7 @@ const Resume = () => {
         }
 
         .slider {
-          width: 100%;
+          width: 100vw;
           overflow-x: scroll;
           display: flex;
           padding-top: 10px;
@@ -554,6 +554,17 @@ const Resume = () => {
         @media (min-width: 500px) {
           main {
             width: 500px;
+          }
+          .slider {
+            width: 500px;
+          }
+        }
+        @media screen and (orientation: landscape) {
+          main {
+            width: 100vw;
+          }
+          .slider {
+            width: 100vw;
           }
         }
       `}</style>

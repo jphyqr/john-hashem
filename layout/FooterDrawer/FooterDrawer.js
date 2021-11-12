@@ -195,6 +195,12 @@ const FooterDrawer = () => {
             z-index: 35;
             overflow-y: scroll;
           }
+
+          @media screen and (orientation: landscape) {
+            .footer-drawer-container {
+              height: 75%;
+            }
+          }
         `}
       </style>
     </div>
