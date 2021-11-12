@@ -33,6 +33,8 @@ const Dimmer = () => {
           top: 0;
           height: 100%;
           width: 100%;
+
+          width: -webkit-fill-available;
           background-color: black;
           opacity: ${rightDrawerOpened || footerDrawerOpened || modalOpened
             ? 0.8
