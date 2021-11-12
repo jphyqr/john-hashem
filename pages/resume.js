@@ -39,9 +39,7 @@ const Resume = () => {
   //   );
   // }, [state.secondsOld]);
   const [f, u] = useState(0);
-  useEffect(() => {
-    u(f + 1);
-  }, [screenWidth, screenHeight]);
+
   const projects = [
     {
       displayName: "Layerate",
@@ -148,12 +146,6 @@ const Resume = () => {
     { skill_type: skill_types.WEB_DEVELOPMENT, id: "firestore", skill: 0.9 },
   ];
 
-  const modalOpened = useSelector((state) => state.modal.opened);
-
-  useEffect(() => {
-    console.log("MODAL OPENED", modalOpened);
-  }, [modalOpened]);
-
   const big_wins = [
     {
       age: "10-15",
@@ -246,26 +238,23 @@ const Resume = () => {
         <article>
           <h4>Tool Belt</h4>
           <section className='row slider'>
-            {skills
-
-              .sort((a, b) => b.skill - a.skill)
-              .map((skill, i) => {
-                return (
-                  <MemoBorderRater
-                    key={i}
-                    color={colors.bright}
-                    max={1}
-                    value={skill.skill}
-                    width={5}
-                  >
-                    <Image
-                      src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                      height={30}
-                      width={30}
-                    />
-                  </MemoBorderRater>
-                );
-              })}
+            {skills.map((skill, i) => {
+              return (
+                <MemoBorderRater
+                  key={i}
+                  color={colors.bright}
+                  max={1}
+                  value={skill.skill}
+                  width={5}
+                >
+                  <Image
+                    src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                    height={30}
+                    width={30}
+                  />
+                </MemoBorderRater>
+              );
+            })}
           </section>
         </article>
 
