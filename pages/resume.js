@@ -202,9 +202,9 @@ const Resume = () => {
     },
   ];
 
-  const MemoImage = (props) => {
+  const MemoBorderRater = (props) => {
     return useMemo(() => {
-      return <Image {...props} />;
+      return <BorderRater {...props} />;
     }, []);
   };
 
@@ -250,23 +250,21 @@ const Resume = () => {
 
               .sort((a, b) => b.skill - a.skill)
               .map((skill, i) => {
-                return useMemo(() => {
-                  return (
-                    <BorderRater
-                      key={i}
-                      color={colors.bright}
-                      max={1}
-                      value={skill.skill}
-                      width={5}
-                    >
-                      <MemoImage
-                        src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                        height={30}
-                        width={30}
-                      />
-                    </BorderRater>
-                  );
-                }, []);
+                return (
+                  <MemoBorderRater
+                    key={i}
+                    color={colors.bright}
+                    max={1}
+                    value={skill.skill}
+                    width={5}
+                  >
+                    <Image
+                      src={`/${skill.id}.png` || `/${skill.id}.jpg`}
+                      height={30}
+                      width={30}
+                    />
+                  </MemoBorderRater>
+                );
               })}
           </section>
         </article>
@@ -498,8 +496,6 @@ const Resume = () => {
           left: 0;
           right: 0;
           bottom: 0;
-
-          overflow: hidden;
         }
 
         header {
