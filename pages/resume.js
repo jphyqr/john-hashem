@@ -504,7 +504,7 @@ const Resume = () => {
               component: () => (
                 <ExportedGrid
                   userUid={"cKAAQdys64KrLxzwXDNV"}
-                  vibeId={"ckvolf00w00003v6r55lhqrjh"}
+                  vibeId={"ckvxey65600003t6rta4s2rid"}
                 />
               ),
             })
