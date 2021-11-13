@@ -37,7 +37,7 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
 
       <style jsx>{`
         .parent {
-          z-index: 3;
+          z-index: 1;
 
           position: absolute;
           min-height: ${parentRect.height}px;

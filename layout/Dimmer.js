@@ -42,7 +42,7 @@ const Dimmer = () => {
           z-index: ${rightDrawerOpened || footerDrawerOpened || modalOpened
             ? 4
             : -1};
-          transition: 0.2s all ease;
+          transition: 0.2s opacity ease;
         }
       `}</style>
     </div>
