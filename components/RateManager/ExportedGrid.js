@@ -179,7 +179,7 @@ const ExportedGrid = ({
     item: {},
   };
 
-  if (state?.gridLoading) return <div>Grid Loading</div>;
+  if (!state || state?.gridLoading) return <div>Grid Loading</div>;
   if (state?.gridError) return <div>Grid Error</div>;
   return (
     <div ref={gridRef} {...swipeEvents} className='exported-grid-container'>
