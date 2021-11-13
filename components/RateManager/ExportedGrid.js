@@ -47,7 +47,7 @@ const ExportedGrid = ({
 
     for (const metric of possibleMetrics) {
       currentArray = currentArray.filter(
-        (i) => i.displayName !== state[`${metric}`].displayName
+        (i) => i.displayName !== state[`${metric}`]?.displayName
       );
     }
 
