@@ -47,7 +47,7 @@ const ExportedGrid = ({
 
     for (const metric of possibleMetrics) {
       currentArray = currentArray.filter(
-        (i) => i.displayName !== state?.[`${metric}`]?.displayName
+        (i) => i?.displayName !== state?.[`${metric}`]?.displayName
       );
     }
 
@@ -183,10 +183,10 @@ const ExportedGrid = ({
   if (state?.gridError) return <div>Grid Error</div>;
   return (
     <div ref={gridRef} {...swipeEvents} className='exported-grid-container'>
-      <div className='gradient-x' />
+      {/* <div className='gradient-x' />
       <div className='gradient-y' />
       <div className='right-border-label' />
-      <div className='top-border-label' />
+      <div className='top-border-label' /> */}
 
       {/* {state?.items?.map((item, i) => {
         return (
