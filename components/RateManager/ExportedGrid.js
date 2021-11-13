@@ -188,7 +188,7 @@ const ExportedGrid = ({
       <div className='right-border-label' />
       <div className='top-border-label' />
 
-      {state?.items?.map((item, i) => {
+      {/* {state?.items?.map((item, i) => {
         return (
           <label
             style={{
@@ -215,7 +215,7 @@ const ExportedGrid = ({
             {item.Name}{" "}
           </label>
         );
-      })}
+      })} */}
 
       <style jsx>{`
 
