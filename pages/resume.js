@@ -533,6 +533,81 @@ const Resume = () => {
           </div>
         </ExpandableRow>
 
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>Awards</h1>}
+        >
+          <div className='row slider'>
+            {projects?.map((project, i) => {
+              return (
+                <article
+                  key={i}
+                  className=' clickable slider-child card'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
+                  <h2>{project.displayName}</h2>
+                  <h3>{project.solution}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </ExpandableRow>
+
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>Awards</h1>}
+        >
+          <div className='row slider'>
+            {projects?.map((project, i) => {
+              return (
+                <article
+                  key={i}
+                  className=' clickable slider-child card'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
+                  <h2>{project.displayName}</h2>
+                  <h3>{project.solution}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </ExpandableRow>
+
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>Awards</h1>}
+        >
+          <div className='row slider'>
+            {projects?.map((project, i) => {
+              return (
+                <article
+                  key={i}
+                  className=' clickable slider-child card'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
+                  <h2>{project.displayName}</h2>
+                  <h3>{project.solution}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </ExpandableRow>
+
         <h1
           onClick={() =>
             dispatch({
