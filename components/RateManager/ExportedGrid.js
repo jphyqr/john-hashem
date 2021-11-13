@@ -267,7 +267,51 @@ const ExportedGrid = ({
         }
 
 
-       
+        .right-border-label {
+          background: linear-gradient(0deg, white 33%, ${yColor} 100%);
+        opacity: 0.5;
+         background-color: purple;
+         position:absolute;
+         left: 0;
+         top: 0;
+         width: ${gutter}px;
+         transform: translateX(-100%);
+         height: ${gridSideLength}px;
+        }
+        
+        .right-border-label:before{
+          position: absolute;
+          top:0;
+          right: 0;
+          width: 200%;
+          background-color: aliceblue;
+          content: "";
+          left: 0;
+          height: 200%;
+          border-radius: 100%;
+          transform:  translateX(-50%) translateY(-10px);
+          z-index:2;
+          
+          
+        }
+        
+        .right-border-label:after{
+          content: "${state?.yMetric?.displayName}";
+          position:absolute;
+          left: 0px;
+          top: 40%;
+          font-size: 13px;
+          color: black;
+          height: 13px;
+          transform: rotateZ(-90deg) translateX(-50%) translateY(-50%);
+          z-index: 2;
+
+            }
+
+
+
+
+
 
 
 
