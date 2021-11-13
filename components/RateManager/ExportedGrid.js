@@ -183,12 +183,12 @@ const ExportedGrid = ({
   if (state?.gridError) return <div>Grid Error</div>;
   return (
     <div ref={gridRef} {...swipeEvents} className='exported-grid-container'>
-      {/* <div className='gradient-x' />
+      <div className='gradient-x' />
       <div className='gradient-y' />
       <div className='right-border-label' />
-      <div className='top-border-label' /> */}
+      <div className='top-border-label' />
 
-      {/* {state?.items?.map((item, i) => {
+      {state?.items?.map((item, i) => {
         return (
           <label
             style={{
@@ -215,7 +215,7 @@ const ExportedGrid = ({
             {item.Name}{" "}
           </label>
         );
-      })} */}
+      })}
 
       <style jsx>{`
 
@@ -256,110 +256,7 @@ const ExportedGrid = ({
 
      
 
-      .gradient-x{
-          background: linear-gradient(90deg, white 20%, ${xColor} 100%);
-    }
-    
-        
-        .gradient-y{
-          background: linear-gradient(0deg, white 20%, ${yColor} 80%); 
-       
-        }
-
-
-        .right-border-label {
-          background: linear-gradient(0deg, white 33%, ${yColor} 100%);
-        opacity: 0.5;
-         background-color: purple;
-         position:absolute;
-         left: 0;
-         top: 0;
-         width: ${gutter}px;
-         transform: translateX(-100%);
-         height: ${gridSideLength}px;
-        }
-        
-        .right-border-label:before{
-          position: absolute;
-          top:0;
-          right: 0;
-          width: 200%;
-          background-color: aliceblue;
-          content: "";
-          left: 0;
-          height: 200%;
-          border-radius: 100%;
-          transform:  translateX(-50%) translateY(-10px);
-          z-index:2;
-          
-          
-        }
-        
-        .right-border-label:after{
-          content: "${state?.yMetric?.displayName}";
-          position:absolute;
-          left: 0px;
-          top: 40%;
-          font-size: 13px;
-          color: black;
-          height: 13px;
-          transform: rotateZ(-90deg) translateX(-50%) translateY(-50%);
-          z-index: 2;
-
-            }
-
-
-
-
-
-
-
-
-            .top-border-label {
-              font-size: 11px;
-              
-              position: absolute;
-              
-              
-              height: ${gutter}px;
-              right:5px;
-              width: ${gridSideLength}px;
-              color: white;
-              bottom:0px;
-              left: 0;
-              text-align:right;
-           
-              opacity: 0.5;
-              background: linear-gradient(90deg, white 20%, ${xColor} 100%) ;
-              }
-              
-              .top-border-label:before{
-                position: absolute;
-                top:0;
-                width: 200%;
-                background-color: aliceblue;
-                content: "";
-                left: 0;
-                height: 200%;
-                border-radius: 100%;
-                transform:  translateX(-50%) translateY(0%);
-                z-index:1;
-              
-                
-                
-              }
-              
-              .top-border-label:after{
-                content: "${state?.xMetric?.displayName}";
-                position:absolute;
-                 color: black;
-                left: 30%;
-                z-index: 10;
-                bottom: 0;
-                font-size: 13px;
-                
-              }
-
+   
 
 
 
