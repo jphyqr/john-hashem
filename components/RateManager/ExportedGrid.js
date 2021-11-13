@@ -256,7 +256,19 @@ const ExportedGrid = ({
 
      
 
-   
+      .gradient-x{
+          background: linear-gradient(90deg, white 20%, ${xColor} 100%);
+    }
+    
+        
+        .gradient-y{
+          background: linear-gradient(0deg, white 20%, ${yColor} 80%); 
+       
+        }
+
+
+       
+
 
 
 
