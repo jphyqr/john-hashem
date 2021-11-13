@@ -219,7 +219,7 @@ const ExportedGrid = ({
 
       <style jsx>{`
 
-      label{
+      label {
         position: absolute;
         background-color: ${itemColor};
         height: ${itemHeight}px;
@@ -243,7 +243,7 @@ const ExportedGrid = ({
          
         }
 
-        .gradient-x, .gradient-y , .gradient-total{
+        .gradient-x, .gradient-y, .gradient-total{
             opacity 0.5;
             width: ${gridSideLength}px;
          
@@ -254,7 +254,7 @@ const ExportedGrid = ({
         }
 
         .gradient-x{
-            background: ${`linear-gradient(90deg, white 20%, ${xColor} 100%)`} ;
+            background: linear-gradient(90deg, white 20%, ${xColor} 100%);
       }
       
           
@@ -329,7 +329,7 @@ const ExportedGrid = ({
                 text-align:right;
              
                 opacity: 0.5;
-                background: ${`linear-gradient(90deg, white 20%, ${xColor} 100%)`} ;
+                background: linear-gradient(90deg, white 20%, ${xColor} 100%) ;
                 }
                 
                 .top-border-label:before{
