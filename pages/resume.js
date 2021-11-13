@@ -510,7 +510,7 @@ const Resume = () => {
                   }
                 >
                   <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
+                  <h4>{project.solution}</h4>
                 </article>
               );
             })}
@@ -533,9 +533,10 @@ const Resume = () => {
                     })
                   }
                 >
-                  <h2>{team.displayName}</h2>
                   <h3>{team.years}</h3>
-                  <h2>{team.title}</h2>
+                  <h2>{team.displayName}</h2>
+
+                  <h4>{team.title}</h4>
                 </article>
               );
             })}
@@ -734,7 +735,12 @@ const Resume = () => {
         .slider > .card {
           background-color: ${colors.bright};
         }
-        h2 ~ h3 {
+        h2 ~ h3,
+        h3 ~ h2 {
+          margin-top: 10px;
+        }
+
+        h4 ~ h3 {
           margin-top: 10px;
         }
 
@@ -742,23 +748,31 @@ const Resume = () => {
           margin-top: 0px;
         }
         .card > h2 {
-          font-size: 12px;
+          font-size: 14px;
         }
         .card > h3 {
+          font-size: 12px;
+        }
+
+        .card > h4 {
           font-size: 10px;
-          font-weight: lighter;
         }
 
         .card {
-          display: table;
+          display: flex;
           flex-direction: column;
 
-          height: auto;
+          height: 100%;
+          justify-content: space-between;
+          align-items: center;
           margin-right: 10px;
-          padding: 5px;
+          padding: 15px;
           background-color: ${colors.light};
         }
-
+        .clickable:hover {
+          pointer: cursor;
+          border: 1px solid red;
+        }
         @media (min-width: 500px) {
           main {
             width: 500px;

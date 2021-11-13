@@ -47,6 +47,10 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
 
           width: 100%;
         }
+
+        .parent-container:hover {
+          cursor: pointer;
+        }
         .parent {
           display: inline-block;
         }
