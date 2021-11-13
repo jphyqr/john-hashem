@@ -61,7 +61,7 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
 
         .expandable-row {
           display: table;
-          height: ${parentRect.height}px;
+          min-height: ${parentRect.height}px;
 
           width: 100%;
           background-color: ${color};

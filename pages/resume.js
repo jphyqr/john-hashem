@@ -180,6 +180,42 @@ const Resume = () => {
     },
   ];
 
+  const teams = [
+    {
+      displayName: "Chuckwagon",
+      years: "2021",
+      title: "Owner/Operator",
+    },
+    { displayName: "sMedia", years: "2018-2020", title: "Product Manager" },
+
+    { displayName: "U of R Rams", years: "2019", title: "Assistant Coach" },
+    {
+      displayName: "SF Construction",
+      years: "2015-2018",
+      title: "Owner/Operator",
+    },
+
+    {
+      displayName: "Leboldus High School",
+      years: "2012-2019",
+      title: "Assistant Coach",
+    },
+    {
+      displayName: "MTL Alouettes",
+      years: "2012-2013",
+      title: "Offensive Lineman",
+    },
+    {
+      displayName: "iQmetrix",
+      years: "2012-2014",
+      title: "Software Developer",
+    },
+    {
+      displayName: "U of R Rams",
+      years: "2010-2015",
+      title: "Football Player",
+    },
+  ];
   const roles = {
     SOFTWARE_ENGINEER: "SOFTWARE_ENGINEER",
     PRODUCT_MANAGER: "PRODUCT_MANAGER",
@@ -452,7 +488,7 @@ const Resume = () => {
           parentComponent={() => <h1>Teams</h1>}
         >
           <div className='row slider'>
-            {projects?.map((project, i) => {
+            {teams?.map((team, i) => {
               return (
                 <article
                   key={i}
@@ -460,12 +496,13 @@ const Resume = () => {
                   onClick={() =>
                     dispatch({
                       type: OPEN_MODAL,
-                      component: () => <JobRecord record={project} />,
+                      component: () => <JobRecord record={team} />,
                     })
                   }
                 >
-                  <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
+                  <h2>{team.displayName}</h2>
+                  <h3>{team.years}</h3>
+                  <h2>{team.title}</h2>
                 </article>
               );
             })}
