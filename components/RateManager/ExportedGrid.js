@@ -296,7 +296,7 @@ const ExportedGrid = ({
         }
         
         .right-border-label:after{
-          content: "test";
+          content: "${state?.yMetric?.displayName || "no name"}";
           position:absolute;
           left: 0px;
           top: 40%;
@@ -350,7 +350,7 @@ const ExportedGrid = ({
               }
               
               .top-border-label:after{
-                content: "test";
+                content: "${state?.xMetric?.displayName || "no name"}";
                 position:absolute;
                  color: black;
                 left: 30%;
