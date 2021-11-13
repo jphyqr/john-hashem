@@ -396,8 +396,8 @@ const Resume = () => {
                       return (
                         <MemoImage
                           src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                          height={20}
-                          width={20}
+                          height={30}
+                          width={30}
                           style={{ borderRadius: 50 }}
                         />
                       );
@@ -426,8 +426,8 @@ const Resume = () => {
                     title={skill.title}
                     key={"endboss"}
                     alignment={"evil"}
-                    height={100}
-                    width={100}
+                    height={150}
+                    width={150}
                     max={100}
                     solidFill
                     fillColor={colors.bright}
@@ -719,7 +719,7 @@ const Resume = () => {
           display: flex;
           flex-direction: column;
           min-width: 75px;
-          height: 80px;
+          height: auto;
           margin-right: 10px;
           padding: 5px;
           background-color: ${colors.light};
