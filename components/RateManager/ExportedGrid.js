@@ -219,153 +219,151 @@ const ExportedGrid = ({
 
       <style jsx>{`
 
-      label {
-        position: absolute;
-        background-color: ${itemColor};
-        height: ${itemHeight}px;
-        width: ${itemWidth}px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 10px;
-        z-index: 10;
-      }
+
+.gradient-x, .gradient-y, .gradient-total{
+  opacity 0.5;
+  width: ${gridSideLength}px;
+
+  height: ${gridSideLength}px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+        label {
+          position: absolute;
+          background-color: ${itemColor};
+          height: ${itemHeight}px;
+          width: ${itemWidth}px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 10px;
+          z-index: 10;
+        }
+
         .exported-grid-container {
           margin-left: ${gutter}px;
           width: ${gridSideLength}px;
           min-height: ${gridSideLength}px;
           position: relative;
           display: table-cell;
+        }
 
+
+     
+
+      .gradient-x{
+          background: linear-gradient(90deg, white 20%, ${xColor} 100%);
+    }
+    
         
-         
+        .gradient-y{
+          background: linear-gradient(0deg, white 20%, ${yColor} 80%); 
+       
         }
 
-        .gradient-x, .gradient-y, .gradient-total{
-            opacity 0.5;
-            width: ${gridSideLength}px;
-         
-            height: ${gridSideLength}px;
-            position: absolute;
-            left: 0;
-            top: 0;
+
+        .right-border-label {
+          background: linear-gradient(0deg, white 33%, ${yColor} 100%);
+        opacity: 0.5;
+         background-color: purple;
+         position:absolute;
+         left: 0;
+         top: 0;
+         width: ${gutter}px;
+         transform: translateX(-100%);
+         height: ${gridSideLength}px;
         }
-
-        .gradient-x{
-            background: linear-gradient(90deg, white 20%, ${xColor} 100%);
-      }
-      
+        
+        .right-border-label:before{
+          position: absolute;
+          top:0;
+          right: 0;
+          width: 200%;
+          background-color: aliceblue;
+          content: "";
+          left: 0;
+          height: 200%;
+          border-radius: 100%;
+          transform:  translateX(-50%) translateY(-10px);
+          z-index:2;
           
-          .gradient-y{
-            background: linear-gradient(0deg, white 20%, ${yColor} 80%); 
-         
-          }
-
-
-          .right-border-label {
-            background: linear-gradient(0deg, white 33%, ${yColor} 100%);
-          opacity: 0.5;
-           background-color: purple;
-           position:absolute;
-           left: 0;
-           top: 0;
-           width: ${gutter}px;
-           transform: translateX(-100%);
-           height: ${gridSideLength}px;
-          }
           
-          .right-border-label:before{
-            position: absolute;
-            top:0;
-            right: 0;
-            width: 200%;
-            background-color: aliceblue;
-            content: "";
-            left: 0;
-            height: 200%;
-            border-radius: 100%;
-            transform:  translateX(-50%) translateY(-10px);
-            z-index:2;
-            
-            
-          }
-          
-          .right-border-label:after{
-            content: "${state?.yMetric?.positive ? "" : "-"} ${
-        state?.yMetric?.displayName
-      }";
-            position:absolute;
-            left: 0px;
-            top: 40%;
-            font-size: 13px;
-            color: black;
-            height: 13px;
-            transform: rotateZ(-90deg) translateX(-50%) translateY(-50%);
-            z-index: 2;
+        }
+        
+        .right-border-label:after{
+          content: "${state?.yMetric?.displayName}";
+          position:absolute;
+          left: 0px;
+          top: 40%;
+          font-size: 13px;
+          color: black;
+          height: 13px;
+          transform: rotateZ(-90deg) translateX(-50%) translateY(-50%);
+          z-index: 2;
 
+            }
+
+
+
+
+
+
+
+
+            .top-border-label {
+              font-size: 11px;
+              
+              position: absolute;
+              
+              
+              height: ${gutter}px;
+              right:5px;
+              width: ${gridSideLength}px;
+              color: white;
+              bottom:0px;
+              left: 0;
+              text-align:right;
+           
+              opacity: 0.5;
+              background: linear-gradient(90deg, white 20%, ${xColor} 100%) ;
+              }
+              
+              .top-border-label:before{
+                position: absolute;
+                top:0;
+                width: 200%;
+                background-color: aliceblue;
+                content: "";
+                left: 0;
+                height: 200%;
+                border-radius: 100%;
+                transform:  translateX(-50%) translateY(0%);
+                z-index:1;
+              
+                
+                
+              }
+              
+              .top-border-label:after{
+                content: "${state?.xMetric?.displayName}";
+                position:absolute;
+                 color: black;
+                left: 30%;
+                z-index: 10;
+                bottom: 0;
+                font-size: 13px;
+                
               }
 
 
 
 
 
-
-
-
-              .top-border-label {
-                font-size: 11px;
-                
-                position: absolute;
-                
-                
-                height: ${gutter}px;
-                right:5px;
-                width: ${gridSideLength}px;
-                color: white;
-                bottom:0px;
-                left: 0;
-                text-align:right;
-             
-                opacity: 0.5;
-                background: linear-gradient(90deg, white 20%, ${xColor} 100%) ;
-                }
-                
-                .top-border-label:before{
-                  position: absolute;
-                  top:0;
-                  width: 200%;
-                  background-color: aliceblue;
-                  content: "";
-                  left: 0;
-                  height: 200%;
-                  border-radius: 100%;
-                  transform:  translateX(-50%) translateY(0%);
-                  z-index:1;
-                
-                  
-                  
-                }
-                
-                .top-border-label:after{
-                  content: "${state?.xMetric?.positive ? "" : "-"}${
-        state?.xMetric?.displayName
-      }";
-                  position:absolute;
-                   color: black;
-                  left: 30%;
-                  z-index: 10;
-                  bottom: 0;
-                  font-size: 13px;
-                  
-                }
-
-
-
-
-            
-          }
       `}</style>
     </div>
   );
