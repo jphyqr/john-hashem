@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useScreenWidth } from "../../hooks/outsideClick";
+import { useRect } from "../../hooks/useRect";
 import useSwipe from "../../hooks/useSwipe";
 
 const ExportedGrid = ({
@@ -13,7 +14,7 @@ const ExportedGrid = ({
     gridLoading: false,
   });
   const gridRef = useRef();
-
+  const gridRect = useRect(gridRef);
   const onSwipeBRTL = () => {
     setState((state) => ({
       ...state,
@@ -156,24 +157,25 @@ const ExportedGrid = ({
 
   const containedLeftPxFromXRate = (
     xRate,
-    containerLeft,
+
     containerWidth,
     itemWidth
   ) => {
     let containedArea = containerWidth - itemWidth;
     let pxFromContainerEdge = xRate * containedArea;
-    return containerLeft + pxFromContainerEdge;
+    return pxFromContainerEdge;
   };
 
   const containedBottomPxFromYRate = (
     yRate,
-    containerBottom,
+
     containerHeight,
     itemHeight
   ) => {
-    let containedArea = containerHeight - itemHeight;
+    let containedArea = containerHeight - itemHeight - gutter;
+
     let pxFromContainerEdge = yRate * containedArea;
-    return containerBottom - pxFromContainerEdge;
+    return pxFromContainerEdge;
   };
   const initialState = {
     item: {},
@@ -181,6 +183,15 @@ const ExportedGrid = ({
 
   if (!state || state?.gridLoading) return <div>Grid Loading</div>;
   if (state?.gridError) return <div>Grid Error</div>;
+
+  const containerWidth = gridRect.right - gridRect.left;
+  const containerHeight = gridRect.bottom - gridRect.top;
+  console.log(
+    "container width",
+    containerWidth,
+    "container hieght",
+    containerHeight
+  );
   return (
     <div ref={gridRef} {...swipeEvents} className='exported-grid-container'>
       <div className='gradient-x' />
@@ -192,21 +203,17 @@ const ExportedGrid = ({
         return (
           <label
             style={{
-              left: item[`${state?.xMetric?.displayName}`] * state?.sideLength,
-              top: item[`${state?.yMetric?.displayName}`] * state?.sideLength,
-              // left:  containedLeftPxFromXRate(
-              //   item[`${state?.xMetric?.displayName}`]*sideLength ?? 0.1,
-              //   0,
-              //   state.sideLength,
-              //   itemWidth
-              // ),
-              // top:
-              //   containedBottomPxFromYRate(
-              //     item[`${state?.xMetric?.displayName}`] ?? 0.1,
-              //     0,
-              //     state.sideLength,
-              //     itemHeight
-              //   ) - itemHeight,
+              left: containedLeftPxFromXRate(
+                item[`${state?.xMetric?.displayName}`] ?? 0.1,
+
+                containerWidth,
+                itemWidth
+              ),
+              top: containedBottomPxFromYRate(
+                1 - item[`${state?.yMetric?.displayName}`] ?? 0.1,
+                containerHeight,
+                itemHeight
+              ),
             }}
             item={item}
             totalItems={state?.items?.length ?? 0}

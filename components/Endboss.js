@@ -258,9 +258,13 @@ const Endboss = (props) => {
           position: absolute;
           top: 0;
           left: 0;
-          font-size: 12px;
+          font-size: 14px;
 
-          color: white;
+          color: black;
+          background-color: ${ringColor};
+
+          opacity: 0.4;
+          width: 100%;
         }
       `}</style>
     </div>

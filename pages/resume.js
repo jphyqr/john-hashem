@@ -180,11 +180,44 @@ const Resume = () => {
     },
   ];
 
+  const achievements = [
+    {
+      year: 2019,
+      displayName: "90/8600",
+      entity: "World Series of Poker Main Event",
+    },
+    {
+      year: 2009,
+      displayName: "31st Pick",
+      entity: "CFL Draft",
+    },
+    {
+      year: 2010,
+      displayName: "Top Student/Athlete Nominee",
+      entity: "U of R",
+    },
+    {
+      year: 2010,
+      displayName: "Top OL",
+      entity: "U Of R Rams",
+    },
+    {
+      year: 2009,
+      displayName: "Top OL",
+      entity: "U Of R Rams",
+    },
+    {
+      year: 2005,
+      displayName: "Top CS Student Scholarship",
+      entity: "WKC High School",
+    },
+  ];
+
   const teams = [
     {
       displayName: "Chuckwagon",
       years: "2021",
-      title: "Owner/Operator",
+      title: "Owner / Operator",
     },
     { displayName: "sMedia", years: "2018-2020", title: "Product Manager" },
 
@@ -451,7 +484,7 @@ const Resume = () => {
                         color: "orange",
                       },
                     ]}
-                    environment={colors.deep}
+                    environment={colors.medium}
                   />{" "}
                 </div>
               );
@@ -510,14 +543,14 @@ const Resume = () => {
         </ExpandableRow>
         <ExpandableRow
           color={colors.light}
-          parentComponent={() => <h1>Awards</h1>}
+          parentComponent={() => <h1>Achievements</h1>}
         >
           <div className='row slider'>
-            {projects?.map((project, i) => {
+            {achievements?.map((achievement, i) => {
               return (
                 <article
                   key={i}
-                  className=' clickable slider-child card'
+                  className='slider-child card'
                   onClick={() =>
                     dispatch({
                       type: OPEN_MODAL,
@@ -525,83 +558,9 @@ const Resume = () => {
                     })
                   }
                 >
-                  <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
-                </article>
-              );
-            })}
-          </div>
-        </ExpandableRow>
-
-        <ExpandableRow
-          color={colors.light}
-          parentComponent={() => <h1>Awards</h1>}
-        >
-          <div className='row slider'>
-            {projects?.map((project, i) => {
-              return (
-                <article
-                  key={i}
-                  className=' clickable slider-child card'
-                  onClick={() =>
-                    dispatch({
-                      type: OPEN_MODAL,
-                      component: () => <JobRecord record={project} />,
-                    })
-                  }
-                >
-                  <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
-                </article>
-              );
-            })}
-          </div>
-        </ExpandableRow>
-
-        <ExpandableRow
-          color={colors.light}
-          parentComponent={() => <h1>Awards</h1>}
-        >
-          <div className='row slider'>
-            {projects?.map((project, i) => {
-              return (
-                <article
-                  key={i}
-                  className=' clickable slider-child card'
-                  onClick={() =>
-                    dispatch({
-                      type: OPEN_MODAL,
-                      component: () => <JobRecord record={project} />,
-                    })
-                  }
-                >
-                  <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
-                </article>
-              );
-            })}
-          </div>
-        </ExpandableRow>
-
-        <ExpandableRow
-          color={colors.light}
-          parentComponent={() => <h1>Awards</h1>}
-        >
-          <div className='row slider'>
-            {projects?.map((project, i) => {
-              return (
-                <article
-                  key={i}
-                  className=' clickable slider-child card'
-                  onClick={() =>
-                    dispatch({
-                      type: OPEN_MODAL,
-                      component: () => <JobRecord record={project} />,
-                    })
-                  }
-                >
-                  <h2>{project.displayName}</h2>
-                  <h3>{project.solution}</h3>
+                  <h2>{achievement.year}</h2>
+                  <h3>{achievement.entity}</h3>
+                  <h4>{achievement.displayName}</h4>
                 </article>
               );
             })}
@@ -791,9 +750,9 @@ const Resume = () => {
         }
 
         .card {
-          display: flex;
+          display: table;
           flex-direction: column;
-          min-width: 75px;
+
           height: auto;
           margin-right: 10px;
           padding: 5px;
