@@ -296,7 +296,7 @@ const ExportedGrid = ({
         }
         
         .right-border-label:after{
-          content: "${state?.yMetric?.displayName}";
+          content: "test";
           position:absolute;
           left: 0px;
           top: 40%;
@@ -312,6 +312,53 @@ const ExportedGrid = ({
 
 
 
+
+
+
+            .top-border-label {
+              font-size: 11px;
+              
+              position: absolute;
+              
+              
+              height: ${gutter}px;
+              right:5px;
+              width: ${gridSideLength}px;
+              color: white;
+              bottom:0px;
+              left: 0;
+              text-align:right;
+           
+              opacity: 0.5;
+              background: linear-gradient(90deg, white 20%, ${xColor} 100%) ;
+              }
+              
+              .top-border-label:before{
+                position: absolute;
+                top:0;
+                width: 200%;
+                background-color: aliceblue;
+                content: "";
+                left: 0;
+                height: 200%;
+                border-radius: 100%;
+                transform:  translateX(-50%) translateY(0%);
+                z-index:1;
+              
+                
+                
+              }
+              
+              .top-border-label:after{
+                content: "test";
+                position:absolute;
+                 color: black;
+                left: 30%;
+                z-index: 10;
+                bottom: 0;
+                font-size: 13px;
+                
+              }
 
 
 
