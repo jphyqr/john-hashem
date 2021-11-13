@@ -77,7 +77,7 @@ const Resume = () => {
           challenges: ["Protecting user data.", "Desktop view"],
         },
       ],
-
+      clickable: true,
       status: "active",
       mobileOnly: true,
     },
@@ -87,7 +87,7 @@ const Resume = () => {
       solution: "Makes restaurants faster",
       best_tech:
         "Live eComm site on top of airtable provides a no-code dashboard for employees to manage",
-
+      clickable: true,
       tech_next_step: "Create Team Meal ordering feature",
       product_next_step: "Integrate with local delivery app",
       tech_challenge:
@@ -122,7 +122,7 @@ const Resume = () => {
     },
     {
       displayName: "Private Host",
-
+      clickable: true,
       solution: "Play Live Poker, Online",
 
       key_benefits: [
@@ -155,7 +155,7 @@ const Resume = () => {
     },
     {
       displayName: "NEMFT",
-
+      clickable: true,
       solution: "Memorize your private key",
 
       key_benefits: ["Makes it possible to memorize a private key"],
@@ -278,7 +278,10 @@ const Resume = () => {
     {
       title: "Soft Skills",
       skills: [
-        { communication: 90 },
+        { verbal: 75 },
+        { written: 50 },
+        { "non-verbal": 90 },
+
         { collaboration: 40 },
         { "time management": 60 },
         { eq: 95 },
@@ -295,6 +298,10 @@ const Resume = () => {
         { speed: 90 },
         { documenting: 30 },
         { custodian: 50 },
+        { learning: 80 },
+        { DRY: 30 },
+        { AHA: 80 },
+        { WET: 70 },
 
         { courage: 70 },
       ],
@@ -302,6 +309,8 @@ const Resume = () => {
     {
       title: "Product Skills",
       skills: [
+        { lofi: 80 },
+        { hifi: 20 },
         { validating: 70 },
         { documenting: 70 },
         { visualization: 90 },
@@ -501,12 +510,17 @@ const Resume = () => {
               return (
                 <article
                   key={i}
-                  className=' clickable slider-child card'
-                  onClick={() =>
-                    dispatch({
-                      type: OPEN_MODAL,
-                      component: () => <JobRecord record={project} />,
-                    })
+                  className={`${
+                    project.clickable ? "clickable" : ""
+                  } slider-child card`}
+                  onClick={
+                    project.clickable
+                      ? () =>
+                          dispatch({
+                            type: OPEN_MODAL,
+                            component: () => <JobRecord record={project} />,
+                          })
+                      : () => {}
                   }
                 >
                   <h2>{project.displayName}</h2>
@@ -525,12 +539,17 @@ const Resume = () => {
               return (
                 <article
                   key={i}
-                  className=' clickable slider-child card'
-                  onClick={() =>
-                    dispatch({
-                      type: OPEN_MODAL,
-                      component: () => <JobRecord record={team} />,
-                    })
+                  className={`${
+                    team.clickable ? "clickable" : ""
+                  } slider-child card`}
+                  onClick={
+                    team.clickable
+                      ? () =>
+                          dispatch({
+                            type: OPEN_MODAL,
+                            component: () => <JobRecord record={team} />,
+                          })
+                      : () => {}
                   }
                 >
                   <h3>{team.years}</h3>
@@ -769,10 +788,7 @@ const Resume = () => {
           padding: 15px;
           background-color: ${colors.light};
         }
-        .clickable:hover {
-          pointer: cursor;
-          border: 1px solid red;
-        }
+
         @media (min-width: 500px) {
           main {
             width: 500px;
