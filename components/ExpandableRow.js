@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useRect } from "../hooks/useRect";
 
-const ExpandableRow = ({ parentComponent, children }) => {
+const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
   const renderParent = () => {
     let ShowComponent;
 
@@ -42,7 +42,7 @@ const ExpandableRow = ({ parentComponent, children }) => {
           position: absolute;
           min-height: ${parentRect.height}px;
           top: 0;
-          background-color: aliceblue;
+          background-color: ${color};
         }
         .items {
           position: absolute;
@@ -64,7 +64,7 @@ const ExpandableRow = ({ parentComponent, children }) => {
           height: ${parentRect.height}px;
 
           width: 100%;
-          background-color: aliceblue;
+          background-color: ${color};
 
           padding-left: 5px;
           padding-right: 5px;

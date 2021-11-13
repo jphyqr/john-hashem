@@ -13,6 +13,9 @@ import { OPEN_FOOTER_DRAWER } from "../layout/FooterDrawer/footerDrawerReducer";
 import Dimmer from "../layout/Dimmer";
 import { useScreenWidth } from "../hooks/outsideClick";
 import NotionPageViewer from "../components/NotionPageViewer";
+import ExpandableRow from "../components/ExpandableRow";
+import ExportedGrid from "../components/RateManager/ExportedGrid";
+
 const Resume = () => {
   const colors = {
     dark: "#121212",
@@ -51,6 +54,7 @@ const Resume = () => {
         "Enable ability to contribute to desktop problems (Airtable) from mobile",
         "Break ambiguous problems into solvable parts",
       ],
+
       roles: [
         {
           title: "Product",
@@ -58,21 +62,22 @@ const Resume = () => {
             "Makes it possible for people to monitize their thinking frameworks",
           ],
           challenges: ["Currently building for too many people."],
+          "next steps": [
+            "Make grids exportable",
+            "Allow users to mint framworks to blockchain",
+          ],
         },
         {
           title: "Tech",
 
-          wins: ["Reusable comopnent from previous side project"],
-          challenges: ["Protecting user data."],
+          wins: [
+            "Reusable comopnent from previous side project",
+            "Drag and Drop on mobile",
+          ],
+          challenges: ["Protecting user data.", "Desktop view"],
         },
       ],
-      best_tech:
-        "Mobile web component that responds to multiple app-like gestures",
 
-      tech_challenge: "Incomplete desktop version",
-
-      tech_next_step: "Integrate with Solana to mint frameworks",
-      product_next_step: "Onboard deep thinkers to program frameworks",
       status: "active",
       mobileOnly: true,
     },
@@ -82,21 +87,69 @@ const Resume = () => {
       solution: "Makes restaurants faster",
       best_tech:
         "Live eComm site on top of airtable provides a no-code dashboard for employees to manage",
-      product_wins: [
-        "Allows kitchen to know of slow items (chicken) on online orders before they are even placed",
-      ],
+
       tech_next_step: "Create Team Meal ordering feature",
       product_next_step: "Integrate with local delivery app",
       tech_challenge:
         "All web based gives a slower experience for entering food items than standard POS",
       product_challenge: "No integrations with Uber Eats as a start up POS app",
+      key_benefits: [
+        "Allow restaurants to get orders from a website to their kitchen",
+        "Allows kitchen to know of slow items (chicken) on online orders before they are even placed",
+      ],
+      roles: [
+        {
+          title: "Product",
+          wins: [
+            "Customers prefered ordering through website instead of large apps",
+          ],
+          challenges: ["Limited to SQUARE Pos"],
+          "next steps": ["Onboard second restaurant"],
+        },
+        {
+          title: "Tech",
+
+          wins: [
+            "Real time responsive POS system powered from Firestore only",
+            "Airtable for back end allows staff to manage menu",
+          ],
+          challenges: [
+            "Reliant on device WiFi, not as fast as ethernet POS systems",
+          ],
+        },
+      ],
       status: "active",
     },
     {
       displayName: "Private Host",
 
       solution: "Play Live Poker, Online",
-      status: "dead",
+
+      key_benefits: [
+        "Allowed host to run games with COVID restrictions",
+        "Made game organization seamless by allowing players to see whale movement",
+        "Enabled users who were physically not possible to play, to play",
+      ],
+      roles: [
+        {
+          title: "Product",
+          wins: ["All online players prefered remote"],
+          challenges: [
+            "Reliant on trust that feed is protected",
+            "Slower game annoyed live players",
+          ],
+          "next steps": ["100% remote set up"],
+        },
+        {
+          title: "Tech",
+
+          wins: [
+            "Enough features to allow remote player to fully participate in game",
+            "Real life feel with users able to control cameras remotely",
+          ],
+          challenges: ["Video feeds were too slow", "Feed is not encrypted"],
+        },
+      ],
       retro:
         "https://www.notion.so/Private-Host-Retrospective-877aa2fc5bc34e4fa0cec94ac8d72bbe",
     },
@@ -104,7 +157,26 @@ const Resume = () => {
       displayName: "NEMFT",
 
       solution: "Memorize your private key",
-      status: "paused",
+
+      key_benefits: ["Makes it possible to memorize a private key"],
+      roles: [
+        {
+          title: "Product",
+
+          challenges: [
+            "Still must rely on a the app to work.",
+            "Currently only works for sports fans",
+          ],
+          "next steps": ["Convert from sport player model to broader"],
+        },
+        {
+          title: "Tech",
+
+          challenges: [
+            "Require animations/3D to get enough data to make memorable",
+          ],
+        },
+      ],
     },
   ];
 
@@ -273,8 +345,7 @@ const Resume = () => {
       </header>
 
       <main>
-        <article>
-          <h4>Tool Belt</h4>
+        <section>
           <section className='row slider'>
             {tools.map((skill, i) => {
               return (
@@ -289,8 +360,8 @@ const Resume = () => {
                       return (
                         <MemoImage
                           src={`/${skill.id}.png` || `/${skill.id}.jpg`}
-                          height={30}
-                          width={30}
+                          height={20}
+                          width={20}
                           style={{ borderRadius: 50 }}
                         />
                       );
@@ -300,10 +371,9 @@ const Resume = () => {
               );
             })}
           </section>
-        </article>
+        </section>
 
-        <article>
-          <h4>Skill</h4>
+        <section>
           <section className='row slider'>
             {skills.map((skill, i) => {
               return (
@@ -320,8 +390,8 @@ const Resume = () => {
                     title={skill.title}
                     key={"endboss"}
                     alignment={"evil"}
-                    height={150}
-                    width={150}
+                    height={100}
+                    width={100}
                     max={100}
                     solidFill
                     fillColor={colors.bright}
@@ -351,12 +421,12 @@ const Resume = () => {
               );
             })}
           </section>
-        </article>
+        </section>
 
-        <hr />
-
-        <section>
-          <h4>2021 Projects</h4>
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>2021 Projects</h1>}
+        >
           <div className='row slider'>
             {projects?.map((project, i) => {
               return (
@@ -376,7 +446,72 @@ const Resume = () => {
               );
             })}
           </div>
-        </section>
+        </ExpandableRow>
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>Teams</h1>}
+        >
+          <div className='row slider'>
+            {projects?.map((project, i) => {
+              return (
+                <article
+                  key={i}
+                  className=' clickable slider-child card'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
+                  <h2>{project.displayName}</h2>
+                  <h3>{project.solution}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </ExpandableRow>
+        <ExpandableRow
+          color={colors.light}
+          parentComponent={() => <h1>Awards</h1>}
+        >
+          <div className='row slider'>
+            {projects?.map((project, i) => {
+              return (
+                <article
+                  key={i}
+                  className=' clickable slider-child card'
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      component: () => <JobRecord record={project} />,
+                    })
+                  }
+                >
+                  <h2>{project.displayName}</h2>
+                  <h3>{project.solution}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </ExpandableRow>
+
+        <h1
+          onClick={() =>
+            dispatch({
+              type: OPEN_FOOTER_DRAWER,
+              disableTouch: true,
+              component: () => (
+                <ExportedGrid
+                  userUid={"cKAAQdys64KrLxzwXDNV"}
+                  vibeId={"ckvolf00w00003v6r55lhqrjh"}
+                />
+              ),
+            })
+          }
+        >
+          Objectives
+        </h1>
       </main>
 
       <footer></footer>
@@ -420,7 +555,6 @@ const Resume = () => {
         }
         section {
           background-color: ${colors.light};
-          padding: 5px;
         }
 
         button {
@@ -496,10 +630,6 @@ const Resume = () => {
           flex-grow: 1;
         }
 
-        .card:last-child {
-          margin-right: 0px;
-        }
-
         .row {
           display: flex;
           width: 100vw;
@@ -517,6 +647,9 @@ const Resume = () => {
           margin-right: 10px;
           height: 100%;
         }
+        .slider-child:first-child {
+          margin-left: 5px;
+        }
 
         .wrap {
           flex-wrap: wrap;
@@ -533,6 +666,10 @@ const Resume = () => {
         h2 ~ h3 {
           margin-top: 10px;
         }
+
+        section ~ section {
+          margin-top: 0px;
+        }
         .card > h2 {
           font-size: 12px;
         }
@@ -545,7 +682,7 @@ const Resume = () => {
           display: flex;
           flex-direction: column;
           min-width: 75px;
-          height: 100px;
+          height: 80px;
           margin-right: 10px;
           padding: 5px;
           background-color: ${colors.light};

@@ -7,6 +7,7 @@ const initialState = {
   ignoreClasses: [],
   parentId: null,
   loading: false,
+  disableTouch: false,
 };
 
 export const footerDrawerReducer = (state = initialState, action) => {
@@ -27,6 +28,7 @@ export const footerDrawerReducer = (state = initialState, action) => {
         top: action.top,
         ignoreClasses: action.ignoreClasses,
         parentId: action.parentId,
+        disableTouch: action.disableTouch,
       };
       break;
     case CLOSE_FOOTER_DRAWER:

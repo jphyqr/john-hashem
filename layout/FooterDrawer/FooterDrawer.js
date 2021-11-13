@@ -14,7 +14,9 @@ const FooterDrawer = () => {
   const [, screenHeight] = useScreenWidth();
   const closeRef = useRef();
   const loading = useSelector((state) => state.footerDrawer.loading || false);
-
+  const disableTouch = useSelector(
+    (state) => state.footerDrawer.disableTouch || false
+  );
   const opened = useSelector((state) => state.footerDrawer?.opened || false);
   const component = useSelector(
     (state) => state.footerDrawer.component || null
@@ -94,13 +96,13 @@ const FooterDrawer = () => {
   }, [opened]);
 
   useEffect(() => {
-    if (opened) {
+    if (opened && !disableTouch) {
       window.addEventListener("touchmove", handleTouchMove);
     } else {
       console.log("REMOVE TOUVCH MOVE");
       window.removeEventListener("touchmove", handleTouchMove);
     }
-  }, [opened]);
+  }, [opened, disableTouch]);
 
   const grabbedItemStyle = useMemo(
     () => ({
