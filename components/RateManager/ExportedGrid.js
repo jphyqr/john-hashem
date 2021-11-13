@@ -41,13 +41,13 @@ const ExportedGrid = ({
 
     let prefix = currentArray.splice(0, currentIndex);
     currentArray = currentArray.concat(prefix);
-    let possibleMetrics = Object.keys(state).filter((pk) =>
+    let possibleMetrics = Object.keys(state)?.filter((pk) =>
       pk.includes("Metric")
     );
 
     for (const metric of possibleMetrics) {
       currentArray = currentArray.filter(
-        (i) => i.displayName !== state[`${metric}`]?.displayName
+        (i) => i.displayName !== state?.[`${metric}`]?.displayName
       );
     }
 
