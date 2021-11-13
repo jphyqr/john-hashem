@@ -23,11 +23,12 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
   return (
     <div className='expandable-row'>
       <div
-        className='parent'
-        ref={parentRef}
         onClick={(state) => setExpanded(!expanded)}
+        className='parent-container'
       >
-        {renderParent()}
+        <div className='parent' ref={parentRef}>
+          {renderParent()}
+        </div>
       </div>
       {/* <h1 onClick={(state) => setExpanded(!expanded)}>{parent}</h1> */}
 
@@ -36,13 +37,18 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
       </div>
 
       <style jsx>{`
-        .parent {
+        .parent-container {
           z-index: 1;
 
           position: absolute;
           min-height: ${parentRect.height}px;
           top: 0;
           background-color: ${color};
+
+          width: 100%;
+        }
+        .parent {
+          display: inline-block;
         }
         .items {
           position: absolute;
@@ -51,11 +57,12 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
           width: 100%;
           flex-wrap: wrap;
           opacity: ${!expanded ? 0 : 1};
-          z-index: ${!expanded ? -1 : 1};
+          z-index: ${!expanded ? -1 : 0};
 
           transform: ${!expanded
             ? `translateY(-${itemsRect.height}px)`
             : `translateY(${parentRect.height}px)`};
+
           transition: 0.8s all ease;
         }
 
