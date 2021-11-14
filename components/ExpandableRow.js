@@ -23,7 +23,11 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
   return (
     <div className='expandable-row'>
       <div
-        onClick={(state) => setExpanded(!expanded)}
+        onClick={(state) => {
+          setExpanded(!expanded);
+
+          window.scrollTo(0, document.body.scrollHeight);
+        }}
         className='parent-container'
       >
         <div className='parent' ref={parentRef}>

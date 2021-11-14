@@ -477,47 +477,14 @@ const Resume = () => {
         twitterUsername={"generatedhash"}
       />
 
-      <header></header>
+      <header>
+        <h1>Looking to join a web3 project</h1> <button>Contact</button>
+      </header>
 
       <main>
         <section style={{ backgroundColor: colors.dark }}>
           <HeroSlider images={["fullstack.png"]} />
         </section>
-
-        <div className='row spaced videos'>
-          {videos.map((video, i) => {
-            return (
-              <div
-                onClick={
-                  video.src
-                    ? () => {
-                        dispatch({
-                          type: OPEN_MODAL,
-                          component: () => (
-                            <video
-                              width={screenWidth}
-                              height={screenHeight}
-                              controls
-                              autoPlay
-                            >
-                              <source src={video.src} type={video.type} />
-                            </video>
-                          ),
-                        });
-                      }
-                    : () => window.alert("Coming Soon")
-                }
-                className='thumbnail slider-child'
-              >
-                <article>
-                  <img width='100' height='100' src={video.thumbnail} />
-                  <h1>{video.title}</h1>
-                </article>
-              </div>
-            );
-          })}
-        </div>
-
         <section>
           <section className='row slider'>
             {tools.map((skill, i) => {
@@ -698,6 +665,46 @@ const Resume = () => {
         >
           Objectives
         </h1>
+
+        <hr />
+
+        <section className='about-me'>
+          <h1>About Me</h1>
+
+          <div className='row spaced videos'>
+            {videos.map((video, i) => {
+              return (
+                <div
+                  onClick={
+                    video.src
+                      ? () => {
+                          dispatch({
+                            type: OPEN_MODAL,
+                            component: () => (
+                              <video
+                                width={screenWidth}
+                                height={screenHeight}
+                                controls
+                                autoPlay
+                              >
+                                <source src={video.src} type={video.type} />
+                              </video>
+                            ),
+                          });
+                        }
+                      : () => window.alert("Coming Soon")
+                  }
+                  className='thumbnail slider-child'
+                >
+                  <article>
+                    <img width='100' height='100' src={video.thumbnail} />
+                    <h1>{video.title}</h1>
+                  </article>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </main>
 
       <footer></footer>
@@ -754,7 +761,8 @@ const Resume = () => {
           width: 200px;
         }
         header {
-          margin-bottom: 10px;
+          background-color: ${colors.bright};
+          color: ${colors.dark};
         }
         section,
         article {
@@ -825,6 +833,19 @@ const Resume = () => {
           display: flex;
           width: 100vw;
           justify-content: space-between;
+          background-color: ${colors.deep};
+          padding: 10px;
+          align-items: center;
+        }
+
+        header > h1 {
+          font-size: 14px;
+          color: ${colors.light};
+        }
+
+        header > button {
+          background-color: ${colors.bright};
+          color: ${colors.light};
         }
 
         body {
@@ -918,6 +939,9 @@ const Resume = () => {
           background-color: ${colors.light};
         }
 
+        hr ~ section {
+          margin-top: 50px;
+        }
         .videos {
           background-color: ${colors.light};
           padding: 5px;
