@@ -8,13 +8,17 @@ import FooterDrawer from "../layout/FooterDrawer/FooterDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_MODAL } from "../config/baseReducers/modalReducer";
 import JobRecord from "../JobRecord/JobRecord";
-import { OPEN_FOOTER_DRAWER } from "../layout/FooterDrawer/footerDrawerReducer";
+import {
+  CLOSE_FOOTER_DRAWER,
+  OPEN_FOOTER_DRAWER,
+} from "../layout/FooterDrawer/footerDrawerReducer";
 import HeroSlider from "../components/HeroSlider/HeroSlider";
 import Dimmer from "../layout/Dimmer";
 import { useScreenWidth } from "../hooks/outsideClick";
 import NotionPageViewer from "../components/NotionPageViewer";
 import ExpandableRow from "../components/ExpandableRow";
 import ExportedGrid from "../components/RateManager/ExportedGrid";
+import Link from "next/link";
 //test
 //test
 const Resume = () => {
@@ -393,13 +397,11 @@ const Resume = () => {
     {
       title: "Football to me",
       thumbnail: "football.jpeg",
-      src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
       type: "video/mp4",
     },
     {
       title: "Crypto to me",
       thumbnail: "john_8bit.jpg",
-      src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
       type: "video/mp4",
     },
   ];
@@ -409,6 +411,56 @@ const Resume = () => {
       return <img {...props} />;
     }, []);
   };
+
+  useEffect(() => {
+    const promptUserForBasicRedirect = () => {
+      dispatch({
+        type: OPEN_FOOTER_DRAWER,
+        component: () => (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h1 style={{ width: "100%", textAlign: "center" }}>
+              This is an over built resume intended to show off a wide array of
+              responsive web skills.
+            </h1>
+
+            <h2>
+              You can also view the
+              <Link href='/johnhashemresume'>
+                <a
+                  style={{
+                    marginLeft: 5,
+                    color: colors.bright,
+                    textDecoration: "underline",
+                  }}
+                >
+                  traditional resume
+                </a>
+              </Link>
+            </h2>
+
+            <button
+              onClick={() => dispatch({ type: CLOSE_FOOTER_DRAWER })}
+              style={{
+                backgroundColor: colors.dark,
+                fontSize: 16,
+                color: colors.light,
+                padding: "5px 10px 5px 10px",
+              }}
+            >
+              Continue{" "}
+            </button>
+          </div>
+        ),
+      });
+    };
+    promptUserForBasicRedirect();
+  }, [process.env.NODE_ENV]);
 
   return (
     <div className='container safe-bottom'>
@@ -436,21 +488,25 @@ const Resume = () => {
           {videos.map((video, i) => {
             return (
               <div
-                onClick={() => {
-                  dispatch({
-                    type: OPEN_MODAL,
-                    component: () => (
-                      <video
-                        width={screenWidth}
-                        height={screenHeight}
-                        controls
-                        autoPlay
-                      >
-                        <source src={video.src} type={video.type} />
-                      </video>
-                    ),
-                  });
-                }}
+                onClick={
+                  video.src
+                    ? () => {
+                        dispatch({
+                          type: OPEN_MODAL,
+                          component: () => (
+                            <video
+                              width={screenWidth}
+                              height={screenHeight}
+                              controls
+                              autoPlay
+                            >
+                              <source src={video.src} type={video.type} />
+                            </video>
+                          ),
+                        });
+                      }
+                    : () => window.alert("Coming Soon")
+                }
                 className='thumbnail slider-child'
               >
                 <article>
