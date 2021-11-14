@@ -427,15 +427,26 @@ const Resume = () => {
         <section style={{ backgroundColor: colors.dark }}>
           <HeroSlider images={["football.jpeg", "poker.png"]} />
         </section>
-        <video width='400' height='400' controls>
-          <source
-            src='https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/IMG_3258.MOV?alt=media&token=7fb51ba2-a44c-44ec-b5bf-b4607229a282'
-            type='video/mp4'
-          />
-        </video>
+
         <div className='row spaced videos'>
           📹
-          <button>Poker</button>
+          <button
+            onClick={() => {
+              dispatch({
+                type: OPEN_MODAL,
+                component: () => (
+                  <video width='400' height='400' controls>
+                    <source
+                      src='https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b'
+                      type='video/mp4'
+                    />
+                  </video>
+                ),
+              });
+            }}
+          >
+            Poker
+          </button>
           <button>Football</button>
           <button>Software</button>
           <button>Product</button>
