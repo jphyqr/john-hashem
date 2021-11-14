@@ -8,7 +8,7 @@ const HeroSlider = ({ images }) => {
     setTimeout(() => {
       if (imageIndex === images.length - 1) return;
       setImageIndex(imageIndex + 1);
-    }, 4000);
+    }, 3000);
   }, [imageIndex]);
   return (
     <div className='hero-image-slider'>

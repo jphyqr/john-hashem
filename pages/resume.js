@@ -404,28 +404,13 @@ const Resume = () => {
         twitterUsername={"generatedhash"}
       />
 
-      <header>
-        {/* <div className='avatar'>
-          <Image
-            style={{
-              borderRadius: 50,
-            }}
-            src={"/john_8bit.jpg"}
-            alt='Picture of John Hashem'
-            width={100}
-            height={100}
-          />
-        </div> */}
-        <article>
-          <hgroup>
-            <h1>John Hashem</h1>
-          </hgroup>
-        </article>
-      </header>
+      <header></header>
 
       <main>
         <section style={{ backgroundColor: colors.dark }}>
-          <HeroSlider images={["football.jpeg", "poker.png"]} />
+          <HeroSlider
+            images={["football.jpeg", "poker.png", "fullstack.png"]}
+          />
         </section>
 
         <div className='row spaced videos'>
