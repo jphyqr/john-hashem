@@ -5,8 +5,10 @@ import Endboss from "../components/Endboss";
 import BorderRater from "../components/BorderRater";
 import ModalWrapper from "../layout/ModalWrapper";
 import FooterDrawer from "../layout/FooterDrawer/FooterDrawer";
+import HeaderDrawer from "../layout/HeaderDrawer/HeaderDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_MODAL } from "../config/baseReducers/modalReducer";
+import { OPEN_HEADER_DRAWER } from "../layout/HeaderDrawer/headerDrawerReducer";
 import JobRecord from "../JobRecord/JobRecord";
 import {
   CLOSE_FOOTER_DRAWER,
@@ -19,6 +21,7 @@ import NotionPageViewer from "../components/NotionPageViewer";
 import ExpandableRow from "../components/ExpandableRow";
 import ExportedGrid from "../components/RateManager/ExportedGrid";
 import Link from "next/link";
+import ContactForm from "../components/ContactForm";
 //test
 //test
 const Resume = () => {
@@ -422,14 +425,16 @@ const Resume = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              height: "100%",
+              padding: 20,
             }}
           >
-            <h1 style={{ width: "100%", textAlign: "center" }}>
+            <h1 style={{ fontSize: 16, width: "100%", textAlign: "center" }}>
               This is an over built resume intended to show off a wide array of
               responsive web skills.
             </h1>
 
-            <h2>
+            <h2 style={{ fontSize: 14, width: "100%", textAlign: "center" }}>
               You can also view the
               <Link href='/johnhashemresume'>
                 <a
@@ -443,7 +448,7 @@ const Resume = () => {
                 </a>
               </Link>
             </h2>
-
+            <div style={{ flexGrow: 1 }} />
             <button
               onClick={() => dispatch({ type: CLOSE_FOOTER_DRAWER })}
               style={{
@@ -466,6 +471,7 @@ const Resume = () => {
     <div className='container safe-bottom'>
       <ModalWrapper />
       <FooterDrawer />
+      <HeaderDrawer />
       <Dimmer />
       <SEO
         title={"John Hashem Resume"}
@@ -478,7 +484,43 @@ const Resume = () => {
       />
 
       <header>
-        <h1>Looking to join a web3 project</h1> <button>Contact</button>
+        <h1>Looking to join a web3 project</h1>{" "}
+        <button
+          onClick={() => {
+            dispatch({
+              type: OPEN_HEADER_DRAWER,
+              component: () => (
+                <ContactForm
+                  fields={[
+                    { name: "e-mail", value: "jphyqr@gmail.com" },
+
+                    {
+                      name: "twitter",
+                      value: "@generatedhash",
+                      url: "https://twitter.com/generatedhash",
+                    },
+
+                    {
+                      url: "https://www.linkedin.com/in/john-hashem-aa9a05163/",
+
+                      name: "linkedin",
+                      value: "John Hashem",
+                    },
+                    {
+                      url: "https://www.calendly.com/jphyqr",
+
+                      name: "Book a meeting",
+                      value: "Calendy",
+                    },
+                  ]}
+                  backgroundColor={colors.light}
+                />
+              ),
+            });
+          }}
+        >
+          Contact
+        </button>
       </header>
 
       <main>

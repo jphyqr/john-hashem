@@ -18,14 +18,15 @@ export const headerDrawerReducer = (state = initialState, action) => {
         loading: false,
       });
     case OPEN_HEADER_DRAWER:
-      return Object.assign(state, {
+      return {
+        ...state,
         opened: true,
         component: action.component,
         bottom: action.bottom,
-      });
+      };
       break;
     case CLOSE_HEADER_DRAWER:
-      return Object.assign(state, initialState);
+      return initialState;
     default:
       return state;
   }
