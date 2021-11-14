@@ -383,6 +383,27 @@ const Resume = () => {
     },
   ];
 
+  const videos = [
+    {
+      title: "Poker to me",
+      thumbnail: "poker.png",
+      src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
+      type: "video/mp4",
+    },
+    {
+      title: "Football to me",
+      thumbnail: "football.jpeg",
+      src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
+      type: "video/mp4",
+    },
+    {
+      title: "Crypto to me",
+      thumbnail: "john_8bit.jpg",
+      src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
+      type: "video/mp4",
+    },
+  ];
+
   const MemoImage = (props) => {
     return useMemo(() => {
       return <img {...props} />;
@@ -408,33 +429,37 @@ const Resume = () => {
 
       <main>
         <section style={{ backgroundColor: colors.dark }}>
-          <HeroSlider
-            images={["football.jpeg", "poker.png", "fullstack.png"]}
-          />
+          <HeroSlider images={["fullstack.png"]} />
         </section>
 
         <div className='row spaced videos'>
-          📹
-          <button
-            onClick={() => {
-              dispatch({
-                type: OPEN_MODAL,
-                component: () => (
-                  <video width='400' height='400' controls>
-                    <source
-                      src='https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b'
-                      type='video/mp4'
-                    />
-                  </video>
-                ),
-              });
-            }}
-          >
-            Poker
-          </button>
-          <button>Football</button>
-          <button>Software</button>
-          <button>Product</button>
+          {videos.map((video, i) => {
+            return (
+              <div
+                onClick={() => {
+                  dispatch({
+                    type: OPEN_MODAL,
+                    component: () => (
+                      <video
+                        width={screenWidth}
+                        height={screenHeight}
+                        controls
+                        autoPlay
+                      >
+                        <source src={video.src} type={video.type} />
+                      </video>
+                    ),
+                  });
+                }}
+                className='thumbnail slider-child'
+              >
+                <article>
+                  <img width='100' height='100' src={video.thumbnail} />
+                  <h1>{video.title}</h1>
+                </article>
+              </div>
+            );
+          })}
         </div>
 
         <section>
@@ -621,6 +646,25 @@ const Resume = () => {
 
       <footer></footer>
       <style jsx>{`
+        .thumbnail {
+          background-color: ${colors.dark};
+          position: relative;
+        }
+
+        .thumbnail:before {
+          position: absolute;
+          content: "";
+          border-top: 15px solid transparent;
+          border-bottom: 15px solid transparent;
+
+          border-left: 20px solid white;
+          color: white;
+
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.6;
+        }
         .row-header {
           width: 50px;
         }
@@ -660,6 +704,18 @@ const Resume = () => {
         article {
           min-height: 0;
           display: table;
+        }
+
+        .thumbnail > article {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .thumbnail > article > h1 {
+          color: white;
+          font-size: 15px;
+          font-weight: normal;
+          margin-top: 5px;
         }
         section {
           background-color: ${colors.light};
@@ -807,8 +863,12 @@ const Resume = () => {
         }
 
         .videos {
-          background-color: ${colors.bright};
+          background-color: ${colors.light};
           padding: 5px;
+        }
+
+        .thumbnail > article > img {
+          object-fit: cover;
         }
 
         @media (min-width: 500px) {
