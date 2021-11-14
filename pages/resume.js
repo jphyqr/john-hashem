@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { OPEN_MODAL } from "../config/baseReducers/modalReducer";
 import JobRecord from "../JobRecord/JobRecord";
 import { OPEN_FOOTER_DRAWER } from "../layout/FooterDrawer/footerDrawerReducer";
-
+import HeroSlider from "../components/HeroSlider/HeroSlider";
 import Dimmer from "../layout/Dimmer";
 import { useScreenWidth } from "../hooks/outsideClick";
 import NotionPageViewer from "../components/NotionPageViewer";
 import ExpandableRow from "../components/ExpandableRow";
 import ExportedGrid from "../components/RateManager/ExportedGrid";
-
+//test
+//test
 const Resume = () => {
   const colors = {
     dark: "#121212",
@@ -423,6 +424,23 @@ const Resume = () => {
       </header>
 
       <main>
+        <section style={{ backgroundColor: colors.dark }}>
+          <HeroSlider images={["football.jpeg", "poker.png"]} />
+        </section>
+        <video width='400' height='400' controls>
+          <source
+            src='https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/IMG_3258.MOV?alt=media&token=7fb51ba2-a44c-44ec-b5bf-b4607229a282'
+            type='video/mp4'
+          />
+        </video>
+        <div className='row spaced videos'>
+          📹
+          <button>Poker</button>
+          <button>Football</button>
+          <button>Software</button>
+          <button>Product</button>
+        </div>
+
         <section>
           <section className='row slider'>
             {tools.map((skill, i) => {
@@ -611,6 +629,9 @@ const Resume = () => {
           width: 50px;
         }
 
+        .spaced {
+          justify-content: space-evenly;
+        }
         .clickable {
           box-shadow: 2px 2px 1px 1px grey;
           position: relative;
@@ -723,7 +744,7 @@ const Resume = () => {
 
         .row {
           display: flex;
-          width: 100vw;
+          width: 100%;
         }
 
         .slider {
@@ -787,6 +808,11 @@ const Resume = () => {
           margin-right: 10px;
           padding: 15px;
           background-color: ${colors.light};
+        }
+
+        .videos {
+          background-color: ${colors.bright};
+          padding: 5px;
         }
 
         @media (min-width: 500px) {
