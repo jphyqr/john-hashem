@@ -181,7 +181,7 @@ const ExportedGrid = ({
     item: {},
   };
 
-  if (!state || state?.gridLoading) return <div>Grid Loading</div>;
+  if (!state || state?.gridLoading) return <div>Grid Loading...</div>;
   if (state?.gridError) return <div>Grid Error</div>;
 
   const containerWidth = gridRect.right - gridRect.left;

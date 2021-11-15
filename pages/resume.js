@@ -22,6 +22,7 @@ import ExpandableRow from "../components/ExpandableRow";
 import ExportedGrid from "../components/RateManager/ExportedGrid";
 import Link from "next/link";
 import ContactForm from "../components/ContactForm";
+import FullStackBuilder from "../components/FullStackBuilder";
 //test
 //test
 const Resume = () => {
@@ -396,16 +397,19 @@ const Resume = () => {
       thumbnail: "poker.png",
       src: "https://firebasestorage.googleapis.com/v0/b/layerate.appspot.com/o/poker.mp4?alt=media&token=668bc5b2-5419-430a-88fd-d2eceaf7110b",
       type: "video/mp4",
+      alt: "Product Manager playing poker World Series of Poker",
     },
     {
       title: "Football to me",
       thumbnail: "football.jpeg",
       type: "video/mp4",
+      alt: "Future Product Manager playing college football",
     },
     {
       title: "Crypto to me",
       thumbnail: "john_8bit.jpg",
       type: "video/mp4",
+      alt: "Current software engineer thoughts on crypto",
     },
   ];
 
@@ -464,7 +468,10 @@ const Resume = () => {
         ),
       });
     };
-    promptUserForBasicRedirect();
+
+    if (process.env.NODE_ENV === "production") {
+      promptUserForBasicRedirect();
+    }
   }, [process.env.NODE_ENV]);
 
   return (
@@ -484,7 +491,7 @@ const Resume = () => {
       />
 
       <header>
-        <h1>Looking to join a web3 project</h1>{" "}
+        <h1>Looking to join a web3 start up</h1>{" "}
         <button
           onClick={() => {
             dispatch({
@@ -524,10 +531,17 @@ const Resume = () => {
       </header>
 
       <main>
-        <section style={{ backgroundColor: colors.dark }}>
-          <HeroSlider images={["fullstack.png"]} />
-        </section>
+        <div className='hero' style={{ backgroundColor: colors.dark }}>
+          <FullStackBuilder
+            backgroundColor={colors.dark}
+            fontColor={colors.light}
+          />
+        </div>
         <section>
+          <div className='row'>
+            <h3>Tool Belt</h3>
+            <span className='toolkey' />
+          </div>
           <section className='row slider'>
             {tools.map((skill, i) => {
               return (
@@ -556,6 +570,7 @@ const Resume = () => {
         </section>
 
         <section>
+          <h3>Self Evaluation</h3>
           <section className='row slider'>
             {skills.map((skill, i) => {
               return (
@@ -691,71 +706,144 @@ const Resume = () => {
           </div>
         </ExpandableRow>
 
-        <h1
-          onClick={() =>
-            dispatch({
-              type: OPEN_FOOTER_DRAWER,
-              disableTouch: true,
-              component: () => (
-                <ExportedGrid
-                  userUid={"cKAAQdys64KrLxzwXDNV"}
-                  vibeId={"ckvxey65600003t6rta4s2rid"}
-                />
-              ),
-            })
-          }
+        <button
+          className='clickable primary'
+          onClick={() => {
+            if (
+              window.confirm(
+                "The Objective Grid is a live view at Johns Layerate Career OBjective"
+              )
+            )
+              dispatch({
+                type: OPEN_FOOTER_DRAWER,
+                disableTouch: true,
+                component: () => (
+                  <ExportedGrid
+                    userUid={"cKAAQdys64KrLxzwXDNV"}
+                    vibeId={"ckvxey65600003t6rta4s2rid"}
+                  />
+                ),
+              });
+          }}
         >
-          Objectives
-        </h1>
+          Objectives (Powered by Layerate)
+        </button>
 
         <hr />
 
         <section className='about-me'>
-          <h1>About Me</h1>
+          <h1>About John Hashem</h1>
 
-          <div className='row spaced videos'>
-            {videos.map((video, i) => {
-              return (
-                <div
-                  onClick={
-                    video.src
-                      ? () => {
-                          dispatch({
-                            type: OPEN_MODAL,
-                            component: () => (
-                              <video
-                                width={screenWidth}
-                                height={screenHeight}
-                                controls
-                                autoPlay
-                              >
-                                <source src={video.src} type={video.type} />
-                              </video>
-                            ),
-                          });
-                        }
-                      : () => window.alert("Coming Soon")
-                  }
-                  className='thumbnail slider-child'
-                >
-                  <article>
-                    <img width='100' height='100' src={video.thumbnail} />
-                    <h1>{video.title}</h1>
-                  </article>
-                </div>
-              );
-            })}
-          </div>
+          <h2>Canadian Software Engineer working abroad</h2>
+
+          <section>
+            <div className='row spaced videos'>
+              {videos.map((video, i) => {
+                return (
+                  <div
+                    onClick={
+                      video.src
+                        ? () => {
+                            dispatch({
+                              type: OPEN_MODAL,
+                              component: () => (
+                                <video
+                                  width={screenWidth}
+                                  height={screenHeight}
+                                  controls
+                                  autoPlay
+                                >
+                                  <source src={video.src} type={video.type} />
+                                </video>
+                              ),
+                            });
+                          }
+                        : () => window.alert("Coming Soon")
+                    }
+                    className={`thumbnail slider-child ${
+                      video.src ? "" : "disabled"
+                    }`}
+                  >
+                    <article>
+                      <img
+                        alt={video.alt}
+                        width='100'
+                        height='100'
+                        src={video.thumbnail}
+                      />
+                      <h1>{video.title}</h1>
+                    </article>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <p>I am a technically trained digital product builder.</p>
+
+          <p>
+            I studied Software Systems Engineering at the University of Regina,
+            while captaining the football team as an Offensive Tackle
+          </p>
+
+          <p>Since college I have immersed myself in different industries</p>
+
+          <ul>
+            <li>Professional Poker</li>
+            <li>Real Estate Investing</li>
+            <li>Construction Contracting</li>
+          </ul>
         </section>
       </main>
 
       <footer></footer>
       <style jsx>{`
+        .disabled {
+          opacity: 0.6;
+        }
+        .primary {
+          background-color: ${colors.bright};
+          color: ${colors.light};
+          font-weight: normal;
+          font-size: 16px;
+        }
+        .toolkey {
+          font-size: 12px;
+          margin-left: 10px;
+          width: 30px;
+          height: 20px;
+          display: flex;
+          position: relative;
+        }
+
+        .toolkey:before {
+          position: absolute;
+          top: 50%;
+          left: 0px;
+          content: "";
+          width: 30px;
+          height: 5px;
+          background-color: ${colors.bright};
+          transform: translateY(-50%);
+        }
+
+        .toolkey:after {
+          content: "confidence";
+          width: 300px;
+          position: absolute;
+          left: calc(100% + 5px);
+          top: 50%;
+          font-size: 14px;
+          transform: translateY(-50%);
+          height: 20px;
+        }
         .thumbnail {
           background-color: ${colors.dark};
           position: relative;
         }
-
+        h1 ~ h2 {
+          margin-top: 10px;
+        }
         .thumbnail:before {
           position: absolute;
           content: "";
@@ -827,6 +915,14 @@ const Resume = () => {
           background-color: ${colors.light};
         }
 
+        section {
+          margin-bottom: 10px;
+        }
+
+        section > section {
+          margin: 0;
+        }
+
         button {
           border: none;
           padding: 5px 10px 5px 10px;
@@ -848,11 +944,25 @@ const Resume = () => {
         h4 {
           font-size: 11px;
         }
+
+        .hero {
+          width: 100%;
+          min-height: 250px;
+          margin-bottom: 30px;
+        }
         .avatar {
           background-color: ${colors.dark};
           padding: 10px;
           border-radius: 50%;
           overflow: hidden;
+        }
+
+        .about-me{
+          background-color ${colors.deep};
+          color: ${colors.light};
+          font-weight: normal;
+          font-size: 12px;
+          padding: 10px;
         }
         .container {
           height: -webkit-fill-available;
@@ -869,25 +979,6 @@ const Resume = () => {
           left: 0;
           right: 0;
           bottom: 0;
-        }
-
-        header {
-          display: flex;
-          width: 100vw;
-          justify-content: space-between;
-          background-color: ${colors.deep};
-          padding: 10px;
-          align-items: center;
-        }
-
-        header > h1 {
-          font-size: 14px;
-          color: ${colors.light};
-        }
-
-        header > button {
-          background-color: ${colors.bright};
-          color: ${colors.light};
         }
 
         body {
@@ -916,6 +1007,7 @@ const Resume = () => {
         .row {
           display: flex;
           width: 100%;
+          align-items: center;
         }
 
         .slider {
@@ -993,6 +1085,37 @@ const Resume = () => {
           object-fit: cover;
         }
 
+        header {
+          display: flex;
+          width: 100vw;
+          justify-content: space-between;
+          background-color: ${colors.deep};
+
+          align-items: center;
+        }
+
+        header > h1 {
+          font-size: 14px;
+          font-weight: bold;
+          color: ${colors.light};
+        }
+
+        header > button {
+          background-color: ${colors.bright};
+          color: ${colors.light};
+        }
+
+
+        .about-me > h1{
+font-size: 30px;
+
+        }
+
+        .about-me > h2 {
+          margin-bottom: 10px;
+        }
+
+       
         @media (min-width: 500px) {
           main {
             width: 500px;
