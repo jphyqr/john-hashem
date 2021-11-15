@@ -106,7 +106,7 @@ const FooterDrawer = () => {
 
   const grabbedItemStyle = useMemo(
     () => ({
-      transform: opened ? "translateY(calc(-100% - 50px))" : "translateY(0%)",
+      transform: opened ? "translateY(-105%)" : "translateY(0%)",
     }),
     [opened]
   );
