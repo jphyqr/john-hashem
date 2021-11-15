@@ -472,7 +472,7 @@ const Resume = () => {
     if (process.env.NODE_ENV === "production") {
       promptUserForBasicRedirect();
     }
-  }, [process.env.NODE_ENV]);
+  }, []);
 
   return (
     <div className='container safe-bottom'>
