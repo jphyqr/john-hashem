@@ -173,7 +173,7 @@ const HeaderDrawer = () => {
             width: 100%;
             position: absolute;
             background-color: cornsilk;
-            bottom: ${screenHeight}px;
+            bottom: 100%;
 
             transition: 0.5s ease;
             z-index: 35;
