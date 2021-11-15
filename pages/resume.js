@@ -470,7 +470,7 @@ const Resume = () => {
     };
 
     if (process.env.NODE_ENV === "production") {
-      setTimeout((() => promptUserForBasicRedirect(), 2000));
+      setTimeout((promptUserForBasicRedirect(), 2000));
     }
   }, []);
 
