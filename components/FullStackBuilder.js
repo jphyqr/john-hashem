@@ -8,7 +8,13 @@ const FullStackBuilder = ({ backgroundColor, fontColor }) => {
   const width = containerRef?.current?.parentElement?.offsetWidth;
   return (
     <article ref={containerRef}>
-      <div className='title'>Full Stack Developer + Product Manager </div>
+      <div className='product'>
+        <div className='product-circle' />
+      </div>
+
+      <div className='fed'>
+        <div className='fed-circle' />
+      </div>
       <style jsx>{`
         .title {
           top: 50%;
@@ -16,26 +22,46 @@ const FullStackBuilder = ({ backgroundColor, fontColor }) => {
           width: 100%;
           text-align: center;
         }
-        .fed,
-        .product {
+
+        .product, .fed{
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%,-50%);
+           
+          }
+        .fed-circle,
+        .product-circle {
           height: ${height * 0.5}px;
           width: ${height * 0.5}px;
           border: 1px solid white;
           border-radius: 50%;
-          top: 50%;
-          left: 33%;
+         
+          position: relative;
         }
 
-        .fed:before {
-          content: "Full Stack Developer";
-          top: 50%;
-          transform: translate(-25%, -50%);
-          width: 300%;
-          position: absolute;
-          font-size: 10px;
+        .fed-circle:before, .product-circle:before{
+            content: "Product";
+            position: absolute;
+            top:0%;
+            left: 50%;
+            transform: translate(-50%, -30px);
         }
-        .product {
-          left: 66%;
+
+      .fed-circle:before{
+          content: "Front-Endgineer";
+         
+          white-space: nowrap;
+        
+      }
+   
+        .fed {
+          left: calc(50% - 50px);
+          top: 50%;
+        }
+        .product{
+            left: calc(50% + 50px);
+            top: 50%;
         }
         article {
           height: ${height}px;
@@ -48,16 +74,13 @@ color: ${fontColor};
           margin: 0;
           padding: 0;
         }
-        div {
-          position: absolute;
-
-          transform: translate(-50%, -50%);
-        }
-
+     
         .title {
           top: 50%;
           left: 50%;
         }
+
+  
       `}</style>
     </article>
   );

@@ -55,6 +55,7 @@ const Resume = () => {
   const projects = [
     {
       displayName: "Layerate",
+      image: "layerate.jpg",
       url: "http://layerate.vercel.app",
       solution: "Makes complex decisions simple",
       key_benefits: [
@@ -92,6 +93,7 @@ const Resume = () => {
     },
     {
       displayName: "SPRES",
+      image: "spres.jpeg",
       url: "http://spres.ca/chuckwagon",
       solution: "Makes restaurants faster",
       best_tech:
@@ -132,6 +134,7 @@ const Resume = () => {
     {
       displayName: "Private Host",
       clickable: true,
+      image: "privatehost.jpg",
       solution: "Play Live Poker, Online",
 
       key_benefits: [
@@ -291,7 +294,7 @@ const Resume = () => {
         { written: 50 },
         { "non-verbal": 90 },
 
-        { collaboration: 40 },
+        { collaboration: 50 },
         { "time management": 60 },
         { eq: 95 },
         { accountability: 80 },
@@ -319,13 +322,12 @@ const Resume = () => {
       title: "Product Skills",
       skills: [
         { lofi: 80 },
-        { hifi: 20 },
-        { validating: 70 },
-        { documenting: 70 },
+        { hifi: 30 },
+        { validating: 80 },
+        { documenting: 60 },
         { visualization: 90 },
-        { "user empathy": 50 },
+        { "user empathy": 70 },
         { "idea creation": 100 },
-        { resilience: 20 },
       ],
     },
   ];
@@ -491,7 +493,10 @@ const Resume = () => {
       />
 
       <header>
-        <h1>Looking to join a web3 start up</h1>{" "}
+        <div className='row'>
+          <label>Looking for: </label> <span>Web 3 Startups</span>{" "}
+          <span>Next.JS Projects</span> <span>React/Firebase Freelancing</span>{" "}
+        </div>
         <button
           onClick={() => {
             dispatch({
@@ -569,58 +574,8 @@ const Resume = () => {
           </section>
         </section>
 
-        <section>
-          <h3>Self Evaluation</h3>
-          <section className='row slider'>
-            {skills.map((skill, i) => {
-              return (
-                <div className='slider-child clickable'>
-                  <Endboss
-                    onExpandClick={(props) => {
-                      dispatch({
-                        type: OPEN_FOOTER_DRAWER,
-                        component: () => (
-                          <Endboss fill showLabels={true} {...props} />
-                        ),
-                      });
-                    }}
-                    title={skill.title}
-                    key={"endboss"}
-                    alignment={"evil"}
-                    height={150}
-                    width={150}
-                    max={100}
-                    solidFill
-                    fillColor={colors.bright}
-                    // attack={attack[randomIntFromInterval(0, 3)]}
-                    scale={[10, 20, 30, 40, 50, 75, 90, 100]}
-                    attributes={skill.skills}
-                    size={100}
-                    armour={0}
-                    ringColor={colors.light}
-                    race={[
-                      {
-                        percent: 50,
-                        color: "silver",
-                      },
-                      {
-                        percent: 25,
-                        color: "black",
-                      },
-                      {
-                        percent: 25,
-                        color: "orange",
-                      },
-                    ]}
-                    environment={colors.medium}
-                  />{" "}
-                </div>
-              );
-            })}
-          </section>
-        </section>
-
         <ExpandableRow
+          openedByDefault={true}
           color={colors.light}
           parentComponent={() => <h1>2021 Projects</h1>}
         >
@@ -631,7 +586,7 @@ const Resume = () => {
                   key={i}
                   className={`${
                     project.clickable ? "clickable" : ""
-                  } slider-child card`}
+                  } slider-child image-card`}
                   onClick={
                     project.clickable
                       ? () =>
@@ -644,6 +599,8 @@ const Resume = () => {
                 >
                   <h2>{project.displayName}</h2>
                   <h4>{project.solution}</h4>
+
+                  {project.image && <img src={project.image} height={200} />}
                 </article>
               );
             })}
@@ -707,7 +664,7 @@ const Resume = () => {
         </ExpandableRow>
 
         <button
-          className='clickable primary'
+          className='primary'
           onClick={() => {
             if (
               window.confirm(
@@ -728,6 +685,57 @@ const Resume = () => {
         >
           Objectives (Powered by Layerate)
         </button>
+
+        <section>
+          <h3>Strengths and Weaknesses</h3>
+          <section className='row slider'>
+            {skills.map((skill, i) => {
+              return (
+                <div className='slider-child clickable'>
+                  <Endboss
+                    onExpandClick={(props) => {
+                      dispatch({
+                        type: OPEN_FOOTER_DRAWER,
+                        component: () => (
+                          <Endboss fill showLabels={true} {...props} />
+                        ),
+                      });
+                    }}
+                    title={skill.title}
+                    key={"endboss"}
+                    alignment={"evil"}
+                    height={150}
+                    width={150}
+                    max={100}
+                    solidFill
+                    fillColor={colors.bright}
+                    // attack={attack[randomIntFromInterval(0, 3)]}
+                    scale={[10, 20, 30, 40, 50, 75, 90, 100]}
+                    attributes={skill.skills}
+                    size={100}
+                    armour={0}
+                    ringColor={colors.light}
+                    race={[
+                      {
+                        percent: 50,
+                        color: "silver",
+                      },
+                      {
+                        percent: 25,
+                        color: "black",
+                      },
+                      {
+                        percent: 25,
+                        color: "orange",
+                      },
+                    ]}
+                    environment={colors.medium}
+                  />{" "}
+                </div>
+              );
+            })}
+          </section>
+        </section>
 
         <hr />
 
@@ -780,6 +788,36 @@ const Resume = () => {
           </section>
 
           <p>
+            I'm a software engineer dedicated to building modern web
+            applications for a variety of industries. I have consistently stayed
+            up to date with modern technologies such as React, allowing me to
+            create digital products that perform. In 2021 I built novel
+            solutions in the restaurant, gambling, auto and productivity
+            industries.
+          </p>
+
+          <h3>QBV1.com, short for "quarterback for your version 1".com</h3>
+
+          <p>
+            I labelled myself a digital quarterback as the position requires
+            execution, distribution and most important: leadership. My large
+            digital toolkit (from Notion→Next.js) allows me to execute value add
+            plays at any phase of any project. My product management experience
+            allows me to distribute action through the vision, problem and
+            market pipelines. And my natural leadership abilities allow me to
+            take full accountability for the teams progress
+          </p>
+
+          <p>
+            The V1 represents that I build more than MVPs. The PM voice in my
+            head pushes no-code (common in v0), while the engineering voice
+            pushes custom solutions. My harmonious space is when the problem
+            requires a solution that is light weight, with the opportunity to
+            scale. Hence, V1: your greenfield application, with a curated
+            feature set, on a scalable platform.
+          </p>
+
+          <p>
             I studied Software Systems Engineering at the University of Regina,
             while captaining the football team as an Offensive Tackle
           </p>
@@ -791,10 +829,6 @@ const Resume = () => {
             <li>Real Estate Investing</li>
             <li>Construction Contracting</li>
           </ul>
-
-          <p>
-            I am interested in both software engineering and product management.
-          </p>
 
           <p>
             My hobbies include poker, coaching football, running and weight
@@ -812,7 +846,12 @@ const Resume = () => {
           background-color: ${colors.bright};
           color: ${colors.light};
           font-weight: normal;
+          width: 40%;
+          box-shadow: 2px 2px 2px grey;
           font-size: 16px;
+          margin-bottom: 30px;
+          margin-top: 20px;
+        
         }
         .toolkey {
           font-size: 12px;
@@ -966,12 +1005,12 @@ const Resume = () => {
         }
 
         .about-me{
-          background-color ${colors.deep};
+          background-color ${colors.dark};
           color: ${colors.light};
           font-weight: normal;
-          font-size: 12px;
+          font-size: 14px;
           padding: 10px;
-          line-height: 36px;
+          line-height: 28px;
         }
         .container {
           height: -webkit-fill-available;
@@ -1046,6 +1085,7 @@ const Resume = () => {
         }
         .slider > .card {
           background-color: ${colors.bright};
+      
         }
         h2 ~ h3,
         h3 ~ h2 {
@@ -1070,7 +1110,7 @@ const Resume = () => {
           font-size: 10px;
         }
 
-        .card {
+        .card, .image-card {
           display: flex;
           flex-direction: column;
 
@@ -1080,6 +1120,22 @@ const Resume = () => {
           margin-right: 10px;
           padding: 15px;
           background-color: ${colors.light};
+        }
+
+        .image-card{
+          background-color ${colors.medium};
+          min-width: 200px;
+          justify-content: center;
+          padding: 5px;
+        }
+
+        .image-card > img{
+          border: 2px solid ${colors.deep};
+          margin-top: 10px;
+
+        }
+        .image-card > h4 {
+          margin-top: 5px;
         }
 
         hr ~ section {
@@ -1101,6 +1157,19 @@ const Resume = () => {
           background-color: ${colors.deep};
 
           align-items: center;
+          color: ${colors.light};
+        }
+
+        header > div > label {
+          margin-right: 10px;
+        }
+
+        header > div > span {
+          margin-right: 5px;
+          font-size: 12px;
+          border: 1px solid ${colors.light};
+          padding: 3px 6px 3px 6px;
+          border-radius: 5px;
         }
 
         header > h1 {

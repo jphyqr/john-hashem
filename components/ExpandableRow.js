@@ -1,7 +1,12 @@
 import React, { useRef, useState } from "react";
 import { useRect } from "../hooks/useRect";
 
-const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
+const ExpandableRow = ({
+  parentComponent,
+  openedByDefault = false,
+  children,
+  color = "aliceblue",
+}) => {
   const renderParent = () => {
     let ShowComponent;
 
@@ -18,7 +23,7 @@ const ExpandableRow = ({ parentComponent, children, color = "aliceblue" }) => {
   const parentRef = useRef(null);
   const parentRect = useRect(parentRef);
   console.log(itemsRect);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(openedByDefault);
 
   return (
     <div className='expandable-row'>
