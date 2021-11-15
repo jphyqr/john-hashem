@@ -779,8 +779,6 @@ const Resume = () => {
             </div>
           </section>
 
-          <p>I am a technically trained digital product builder.</p>
-
           <p>
             I studied Software Systems Engineering at the University of Regina,
             while captaining the football team as an Offensive Tackle
@@ -793,6 +791,15 @@ const Resume = () => {
             <li>Real Estate Investing</li>
             <li>Construction Contracting</li>
           </ul>
+
+          <p>
+            I am interested in both software engineering and product management.
+          </p>
+
+          <p>
+            My hobbies include poker, coaching football, running and weight
+            training.
+          </p>
         </section>
       </main>
 
@@ -893,6 +900,7 @@ const Resume = () => {
         header {
           background-color: ${colors.bright};
           color: ${colors.dark};
+          padding: 5px;
         }
         section,
         article {
@@ -963,6 +971,7 @@ const Resume = () => {
           font-weight: normal;
           font-size: 12px;
           padding: 10px;
+          line-height: 36px;
         }
         .container {
           height: -webkit-fill-available;
@@ -989,13 +998,13 @@ const Resume = () => {
 
         main {
           margin: auto;
-
+          max-width: 600px;
           display: flex;
           flex-direction: column;
 
           height: -webkit-fill-available;
           max-height: 100vh;
-
+          
           overflow-y: scroll;
           overflow-x: hidden;
         }
@@ -1116,12 +1125,12 @@ font-size: 30px;
         }
 
        
-        @media (min-width: 500px) {
+        @media (min-width: 600px) {
           main {
-            width: 500px;
+            width: 600px;
           }
           .slider {
-            width: 500px;
+            width: 600px;
           }
         }
         @media screen and (orientation: landscape) {

@@ -139,11 +139,11 @@ const Endboss = (props) => {
               style={{
                 position: "absolute",
                 color: "white",
+
                 left: `${p.maxX * 0.75 + xHalf}px`,
                 top: `${p.maxY * 0.75 + yHalf}px`,
                 transform: "translateX(-50%)",
-                fontSize: 12,
-                fontWeight: "lighter",
+                fontSize: 14,
               }}
             >
               {p.label}
@@ -261,10 +261,11 @@ const Endboss = (props) => {
           font-size: 14px;
 
           color: black;
-          background-color: ${ringColor};
 
-          opacity: 0.4;
           width: 100%;
+          text-align: center;
+          background-color: ${ringColor};
+          line-height: 20px;
         }
       `}</style>
     </div>
