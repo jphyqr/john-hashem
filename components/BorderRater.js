@@ -8,6 +8,7 @@ const BorderRater = ({
   value,
   width = 1,
   color,
+  key,
   classNames = [],
 }) => {
   console.log("BORDER RATER RENDERED");
@@ -78,6 +79,7 @@ const BorderRater = ({
     display: inline-block;
     border-radius: 50%;
 padding ${width}px;
+
 
 }
         .circle-border {

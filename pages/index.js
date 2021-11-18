@@ -38,9 +38,14 @@ const Resume = () => {
   const calculateSecondsOld = () =>
     ((Date.now() - new Date(1987, 4, 15)) / 1000).toFixed(0);
 
+  const TOOL_KEYS = {
+    CONFIDENCE: "Confidence",
+    CURIOSITY: "Curiosity",
+  };
   const [screenWidth, screenHeight] = useScreenWidth();
   const [state, setState] = useState({
     secondsOld: calculateSecondsOld(),
+    toolKey: TOOL_KEYS.CONFIDENCE,
   });
 
   // useEffect(() => {
@@ -333,17 +338,72 @@ const Resume = () => {
     },
   ];
   const tools = [
-    { skill_type: skill_types.PRODUCTIVITY, id: "airtable", skill: 0.9 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "next", skill: 0.8 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "react", skill: 0.8 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "redux", skill: 0.8 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "node", skill: 0.5 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "javascript", skill: 0.7 },
-    { skill_type: skill_types.PRODUCTIVITY, id: "notion", skill: 0.4 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "docker", skill: 0.1 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "rust", skill: 0.1 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "solidity", skill: 0.2 },
-    { skill_type: skill_types.WEB_DEVELOPMENT, id: "firestore", skill: 0.9 },
+    {
+      skill_type: skill_types.PRODUCTIVITY,
+      id: "airtable",
+      confidence: 0.9,
+      curiosity: 0.3,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "next",
+      confidence: 0.8,
+      curiosity: 0.9,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "react",
+      confidence: 0.8,
+      curiosity: 1,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "redux",
+      confidence: 0.8,
+      curiosity: 0.5,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "node",
+      confidence: 0.5,
+      curiosity: 0.8,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "javascript",
+      confidence: 0.7,
+      curiosity: 0.9,
+    },
+    {
+      skill_type: skill_types.PRODUCTIVITY,
+      id: "notion",
+      confidence: 0.4,
+      curiosity: 0.2,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "docker",
+      confidence: 0.1,
+      curiosity: 0.2,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "rust",
+      confidence: 0.1,
+      curiosity: 0.8,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "solidity",
+      confidence: 0.2,
+      curiosity: 0.9,
+    },
+    {
+      skill_type: skill_types.WEB_DEVELOPMENT,
+      id: "firestore",
+      confidence: 0.9,
+      curiosity: 0.5,
+    },
   ];
 
   const big_wins = [
@@ -472,7 +532,7 @@ const Resume = () => {
       });
     };
 
-    if (process.env.NODE_ENV === "production") {
+    if (false && process.env.NODE_ENV === "production") {
       setTimeout((promptUserForBasicRedirect(), 2000));
     }
   }, []);
@@ -495,8 +555,8 @@ const Resume = () => {
 
       <header>
         <div className='row'>
-          <label>Looking for: </label> <span>Web 3 Startups</span>{" "}
-          <span>Next.JS Projects</span> <span>React/Firebase Freelancing</span>{" "}
+          <label>Looking for: </label> <span>Web 3</span> <span>Next.JS</span>{" "}
+          <span>React/Firebase Freelancing</span>{" "}
         </div>
         <button
           onClick={() => {
@@ -525,6 +585,12 @@ const Resume = () => {
                       name: "Book a meeting",
                       value: "Calendy",
                     },
+                    {
+                      url: "https://resume.io/r/XvFP0yKmG",
+
+                      name: "Resume",
+                      value: "Resume",
+                    },
                   ]}
                   backgroundColor={colors.light}
                 />
@@ -546,9 +612,23 @@ const Resume = () => {
         <section>
           <div className='row'>
             <h3>Tool Belt</h3>
-            <span className='toolkey' />
+            {/* <span className='toolkey' /> */}
+
+            {Object.keys(TOOL_KEYS).map((key, i) => {
+              return (
+                <button
+                  className={`${key === state.toolKey ? "selected" : ""}`}
+                  onClick={() =>
+                    setState((state) => ({ ...state, toolKey: key }))
+                  }
+                  key={i}
+                >
+                  {key}
+                </button>
+              );
+            })}
           </div>
-          <section className='row slider'>
+          <section className='row wrap'>
             {tools.map((skill, i) => {
               return (
                 <div className='slider-child'>
@@ -556,8 +636,9 @@ const Resume = () => {
                     key={i}
                     color={colors.bright}
                     max={1}
-                    value={skill.skill}
+                    value={skill[`${state.toolKey.toLocaleLowerCase()}`]}
                     width={5}
+                    key={state.toolKey}
                     child={() => {
                       return (
                         <MemoImage
@@ -911,6 +992,10 @@ const Resume = () => {
           width: 50px;
         }
 
+
+        .row > button {
+          margin-left: 10px;
+        }
         .spaced {
           justify-content: space-evenly;
         }
@@ -971,6 +1056,8 @@ const Resume = () => {
 
         section > section {
           margin: 0;
+
+          margin-top: 10px;
         }
 
         button {
@@ -1051,6 +1138,11 @@ const Resume = () => {
           overflow-x: hidden;
         }
 
+        .selected {
+          background-color: ${colors.bright};
+          color: white;
+        }
+
         .grow {
           flex-grow: 1;
         }
@@ -1079,6 +1171,12 @@ const Resume = () => {
 
         .wrap {
           flex-wrap: wrap;
+          width: 100vw;
+          justify-content: space-evenly;;
+        }
+
+        .wrap > .slider-child{
+          margin-bottom: 10px;
         }
 
         .card > button {
@@ -1140,7 +1238,7 @@ const Resume = () => {
         .image-card > h4 {
           margin-top: 5px;
         }
-
+x
         hr ~ section {
           margin-top: 50px;
         }

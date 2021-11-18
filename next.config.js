@@ -1,6 +1,14 @@
 require("dotenv").config();
 const webpack = require("webpack");
+const keys = require("./config/keys");
 module.exports = {
+  env: {
+    TWITTER_ACCESS_TOKEN: keys.twitterKey,
+    TWITTER_BEARER_TOKEN: keys.twitterBearerToken,
+    TWITTER_ACCESS_TOKEN_SECRET: keys.twitterSecret,
+    TWITTER_CONSUMER_KEY: keys.twitterConsumerKey,
+    TWITTER_CONSUMER_SECRET: keys.twitterConsumerSecret,
+  },
   images: {
     domains: [
       "firebasestorage.googleapis.com",
