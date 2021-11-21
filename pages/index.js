@@ -297,7 +297,7 @@ const Resume = () => {
       title: "Soft Skills",
       skills: [
         { verbal: 75 },
-        { written: 50 },
+        { written: 70 },
         { "non-verbal": 90 },
 
         { collaboration: 50 },
@@ -306,29 +306,31 @@ const Resume = () => {
         { accountability: 80 },
         { "people skills": 100 },
 
-        { problemsolving: 90 },
         { resilience: 60 },
       ],
     },
     {
-      title: "Programming Skills",
+      title: "Programming",
       skills: [
         { speed: 90 },
-        { documenting: 30 },
+        { documenting: 40 },
         { custodian: 50 },
-        { learning: 80 },
-        { DRY: 30 },
-        { AHA: 80 },
-        { WET: 70 },
-
-        { courage: 70 },
+        { learning: 100 },
+        { "reusable components": 80 },
+        { algorithms: 70 },
+        { "data structures": 60 },
+        { "system design": 60 },
+        { "API Design": 60 },
+        { "User state": 100 },
+        { "Error Handling": 60 },
+        { Git: 60 },
       ],
     },
     {
       title: "Product Skills",
       skills: [
-        { lofi: 80 },
-        { hifi: 30 },
+        { "lofi design": 80 },
+        { "hifi design": 30 },
         { validating: 80 },
         { documenting: 60 },
         { visualization: 90 },
@@ -555,7 +557,7 @@ const Resume = () => {
 
       <header>
         <div className='row'>
-          <label>Looking for: </label> <span>Web 3</span> <span>Next.JS</span>{" "}
+          <span>Web 3</span> <span>Next.JS</span>{" "}
           <span>React/Firebase Freelancing</span>{" "}
         </div>
         <button

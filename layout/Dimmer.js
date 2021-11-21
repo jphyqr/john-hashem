@@ -6,6 +6,7 @@ import {
   SET_DIMMER_BLOCK,
 } from "../config/baseReducers/blockedReducer";
 import { CLOSE_MODAL } from "../config/baseReducers/modalReducer";
+import { useKeyPress } from "../hooks/useKeyPress";
 import { CLOSE_FOOTER_DRAWER } from "./FooterDrawer/footerDrawerReducer";
 import { CLOSE_HEADER_DRAWER } from "./HeaderDrawer/headerDrawerReducer";
 import {
@@ -40,6 +41,7 @@ const Dimmer = () => {
     rightDrawerOpened || footerDrawerOpened || modalOpened || headerDrawerOpened
       ? true
       : false;
+
   useEffect(() => {
     const turnOnBlocker = () => {
       dispatch({ type: SET_DIMMER_BLOCK });
@@ -52,9 +54,35 @@ const Dimmer = () => {
     else clearBlocker();
   }, [show]);
 
+  const escapePress = useKeyPress("Escape");
+
+  useEffect(() => {
+    console.log("escape press", escapePress);
+    if (escapePress) handleCloseWindow();
+  }, [escapePress]);
+
   return (
     <div onClick={handleCloseWindow} className='dimmer'>
+      <div className='close-button' />
       <style jsx>{`
+        .close-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+        .close-button:before {
+          content: "X";
+          color: red;
+          background-color: grey;
+          text-align: center;
+          line-height: 30px;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          color: black;
+          width: 30px;
+          height: 30px;
+        }
         .dimmer {
           position: absolute;
           left: 0;
