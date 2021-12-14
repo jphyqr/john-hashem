@@ -1,119 +1,196 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_MODAL } from "../config/baseReducers/modalReducer";
+const shuffle = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
 
 const test = () => {
-  const solution = (message, K) => {
-    let terms = message.split(" ");
+  class WarPlayer {
+    constructor(name) {
+      this.name = name;
+      this.hand = [];
+      this.discarded = [];
+    }
 
-    let finalString = "";
-    for (const term of terms) {
-      let capSpace = K - finalString.length;
+    collectShuffledCards() {
+      console.log("SHUFFLING CARDS BEFORE", this.hand);
+      this.hand = [...this.hand, ...shuffle(this.discarded)];
+      this.discarded = [];
+      console.log("SHUFFLING CARDS AFFTER", this.hand);
+    }
 
-      if (term.length <= capSpace) {
-        finalString = finalString + " " + term;
+    receiveCard(card) {
+      this.hand = [...this.hand, card];
+    }
+
+    receiveDiscardedCards(cards) {
+      this.discarded = [...this.discarded, ...cards];
+    }
+
+    drawTopCard() {
+      //remove card from hand
+
+      return this.hand.shift();
+    }
+  }
+
+  class WarGame {
+    constructor(deck, playerA, playerB) {
+      this.deck = deck;
+      this.playerA = playerA;
+      this.playerB = playerB;
+      this.dealer = playerA;
+      this.oop = playerB;
+      this.nextPlayerToReceive = playerB;
+      this.playerACardDrawn = null;
+      this.playerBCardDrawn = null;
+    }
+
+    nextDraw() {
+      this.playerACardDrawn = this.playerA.drawTopCard();
+      this.playerBCardDrawn = this.playerB.drawTopCard();
+
+      if (this.playerBCardDrawn.value >= this.playerACardDrawn.value) {
+        this.playerB.receiveDiscardedCards([
+          this.playerACardDrawn,
+          this.playerBCardDrawn,
+        ]);
+        console.log("Player B Won");
       } else {
-        break;
+        this.playerA.receiveDiscardedCards([
+          this.playerACardDrawn,
+          this.playerBCardDrawn,
+        ]);
+        console.log("Player A Won");
       }
     }
-    console.log("Final string", finalString.trim());
-    return finalString.trim();
-  };
+    shuffleCards() {
+      this.deck.shuffleCards();
+    }
 
-  // solution("Codility We test coders", 14);
-  // solution("Why not", 100);
-  // solution("The quick brown fox jumps over the lazy dog", 39);
-  // solution("To crop or not to crop", 21);
+    initialDeal() {
+      //loop through sshuffled cards, and assign each one to a player
 
-  const popBiggestCar = (carsLeft, peopleLeft) => {
-    console.log(
-      "Fill the biggest suitable car for",
-      peopleLeft,
-      "from",
-      carsLeft
-    );
+      while (this.deck.cards.length > 0) {
+        this.nextPlayerToReceive.receiveCard(this.deck.cards.shift());
+        this.nextPlayerToReceive =
+          this.nextPlayerToReceive === this.dealer ? this.oop : this.dealer;
+      }
+    }
+  }
 
-    const indexBiggestCar = carsLeft.findIndex((c) => c >= peopleLeft);
-    console.log("index of biggest car", indexBiggestCar);
-    // return carsLeft.find((c) => c >= peopleLeft);
-  };
+  class Deck {
+    constructor() {
+      const suits = ["s", "c", "h", "d"];
+      const faceValue = [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "J",
+        "Q",
+        "K",
+        "A",
+      ];
+      let sortedDeck = [];
+      //generate all 52 cards
 
-  const cars = (P, S) => {
-    let remainingPeople = P.reduce((prev, cur) => prev + cur, 0);
+      for (var i = 0; i < suits.length; i++) {
+        for (var j = 0; j < faceValue.length; j++) {
+          sortedDeck.push({ face: faceValue[j], suit: suits[i], value: j });
+        }
+      }
 
-    let sortedCars = S.sort((a, b) => b - a);
+      console.log(sortedDeck);
 
-    let unusedCards = sortedCars;
-    let carsRequired = 0;
+      this.cards = sortedDeck;
+    }
 
-    do {
-      let nextCar = unusedCards.shift();
-      console.log("fill ", nextCar, "leaving", unusedCards);
-      remainingPeople = remainingPeople - nextCar;
+    shuffle(array) {
+      let currentIndex = array.length,
+        randomIndex;
 
-      carsRequired++;
-    } while (remainingPeople > 0);
+      // While there remain elements to shuffle...
+      while (currentIndex != 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
 
-    return carsRequired;
-    //console.log("filling car", nextCar);
-    //see if find one that fits all
-    // let bigEnoughCar = sortedCars.find((c) => c >= totalPeople);
-    // if (bigEnoughCar) {
-    //   console.log("Found Big enough car");
-    //   return bigEnoughCar;
-    // } else {
-    //   console.log("Didnt find a car");
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex],
+          array[currentIndex],
+        ];
+      }
 
-    // }
-  };
+      return array;
+    }
 
-  // cars([1, 4, 1], [1, 5, 1]);
+    shuffleCards() {
+      this.cards = this.shuffle(this.cards);
+    }
+  }
 
-  // cars([1, 4, 1], [1, 6, 1]);
+  const deck = new Deck();
+  const playerA = new WarPlayer("John");
+  const playerB = new WarPlayer("Jim");
+  const game = new WarGame(deck, playerA, playerB);
 
-  // cars([4, 4, 2, 4], [5, 5, 2, 5]);
+  game.shuffleCards();
+  game.initialDeal();
 
-  // cars([2, 3, 4, 2], [2, 5, 7, 2]);
+  //draw cards until a player has no cards left in hand
 
-  const industrial = (A) => {
-    let totalEmissions = A.reduce(
-      (prev, cur) => parseInt(prev) + parseInt(cur),
-      0
-    );
-    let minEmissionsToRemove = totalEmissions / 2;
-    console.log("minEmissionsToRemove", minEmissionsToRemove);
+  while (game.playerA.hand.length > 0 && game.playerB.hand.length > 0) {
+    game.nextDraw();
 
-    //apply filter to largest remaining factory ..which is at front
-    let totalEmissionsReduced = 0;
-    let filtersApplied = 0;
-    do {
-      filtersApplied++;
-      let sortedFactories = A.sort((a, b) => b - a);
+    if (game.playerA.hand.length === 0) {
+      //check player A state
+      if (game.playerA.discarded.length === 0) {
+        console.log("Player B Won the game");
+        break;
+      } else {
+        //we have discard cards, lets shuffle and
+        game.playerA.collectShuffledCards();
+      }
+    }
 
-      let biggestItem = A.shift();
+    if (game.playerB.hand.length === 0) {
+      //check player B state
+      if (game.playerB.discarded.length === 0) {
+        console.log("Player A Won the game");
+        break;
+      } else {
+        game.playerB.collectShuffledCards();
+      }
+    }
+  }
 
-      let halfOfBiggestITem = biggestItem / 2;
-      totalEmissionsReduced = totalEmissionsReduced + halfOfBiggestITem;
+  //want to reshuffle, when a player is out of cards in hand, but the game isnt over.
 
-      A.unshift(halfOfBiggestITem);
-      console.log("new A", A);
-      A.sort((a, b) => b - a);
-      console.log("A resorted", A);
-    } while (totalEmissionsReduced < minEmissionsToRemove);
-  };
-
-  //factories N
-  //filters f
-  //polution p
-  //companies wnat to reduce total fumes fumesTotal
-  let nFilters = 0;
-  let fumesTotal = 0;
-  //each filter reduces polution of factory by half
-  //add another filter, reduce remaining pollution after the last filter
-
-  //key is apply filters to each factory in size
-
-  industrial([100000, 0]);
+  console.log(game);
   return <div className='test-container'>Practice Test containedArea</div>;
 };
 
