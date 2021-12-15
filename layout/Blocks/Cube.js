@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRect } from "../../hooks/useRect";
+import _ from "lodash";
 import { useScreenWidth } from "../../hooks/outsideClick";
 const Cube = ({
   side,
@@ -7,52 +8,81 @@ const Cube = ({
   svgX,
   index,
   setCubeRefs,
+  paint,
+  rightHanded,
   previousBlockPosition,
 }) => {
   let cubeRef = useRef();
   let cubeRect = useRect(cubeRef);
-  const rightHanded = index % 2 === 0 ? true : false;
+
   const [screenWidth] = useScreenWidth();
-  const crossWidth = screenWidth - xMiddle;
+
   const containerRef = useRef();
   let containerRect = useRect(containerRef);
-  const [parent, setParent] = useState(null);
+  const [containingBlockDims, setContainingBlockDims] = useState(null);
 
   useEffect(() => {
-    if (!cubeRect) return;
-    setCubeRefs((state) => ({ ...state, [index]: cubeRect }));
-  }, [cubeRect]);
+    if (!containerRef?.current) return;
 
+    setContainingBlockDims((state) => ({
+      ...state,
+      height:
+        containerRef.current.parentElement.parentElement.parentElement
+          .offsetHeight,
+      width:
+        containerRef.current.parentElement.parentElement.parentElement
+          .offsetWidth,
+    }));
+  }, [containerRef?.current]);
+
+  useEffect(() => {
+    if (!cubeRect?.bottom) return;
+    setCubeRefs((state) => ({ ...state, [index]: cubeRect }));
+  }, [cubeRect.bottom]);
+
+  const [f, u] = useState(0);
+
+  useEffect(() => {
+    u(f + 1);
+  }, [containerRef?.height, containerRef?.width]);
   let cubeMargin = rightHanded ? screenWidth - cubeRect.right : cubeRect.left;
 
   console.log("cube margin for cube", index, cubeMargin);
   const [_parentsSide, setParentsSide] = useState(0);
   const xMiddle = cubeRect.left + cubeRect.width / 2;
   const yTop = containerRect.height / 2 - cubeRect.height / 2;
-  const svgHeight =
-    cubeRect?.top - previousBlockPosition?.top - cubeRect?.height;
+  console.log("container rect height", containerRect.height);
+  const svgHeight = cubeRect?.top - previousBlockPosition?.bottom;
   const svgWidth = rightHanded
     ? cubeRect?.left - previousBlockPosition?.left
     : previousBlockPosition?.left - cubeRect?.left;
 
   return (
     <div ref={containerRef} className='container'>
-      <svg height={svgHeight} width={svgWidth}>
+      <svg
+        className={rightHanded ? "right-svg" : "left-svg"}
+        height={svgHeight}
+        width={svgWidth}
+      >
         <path
           className='path right'
           stroke='purple'
           stroke-width='1'
           fillOpacity='0'
           //             d='M66.039,133.545c0,0-21-57,18-67s49-4,65,8
-          // s30,41,53,27s66,4,58,32s-5,44,18,57s22,46,0,43s-54-40-68-16s-40,88-83,48s11-61-11-80s-79-7-70-41
+          // s30,41,53,27s66,4,58,32s-5,44,18,57s22,46,0,41.5s-54-40-68-16s-40,88-83,48s11-61-11-80s-79-7-70-41
           // C46.039,146.545,53.039,128.545,66.039,133.545z'
           d={
             rightHanded
               ? `M${svgWidth},${svgHeight} L ${svgWidth},${
-                  svgHeight / 2
-                } L ${0}, ${svgHeight / 2} L${0}, ${0}`
-              : `M${0},${svgHeight} L ${0},${svgHeight / 2} L ${svgWidth}, ${
-                  svgHeight / 2
+                  svgHeight - containingBlockDims?.height / 2
+                } L ${0}, ${
+                  svgHeight - containingBlockDims?.height / 2
+                } L${0}, ${0}`
+              : `M${0},${svgHeight} L ${0},${
+                  svgHeight - containingBlockDims?.height / 2
+                } L ${svgWidth}, ${
+                  svgHeight - containingBlockDims?.height / 2
                 } L${svgWidth}, ${0}`
           }
         />
@@ -66,18 +96,22 @@ const Cube = ({
               width: 5,
               backgroundColor: "white",
 
-              transform: `translate(${Math.random() * 1000 - 500}px, -${
-                Math.random() * 300
-              }px)`,
+              transform: `${
+                paint
+                  ? `translate(-50%,-50%)`
+                  : `translate(${Math.random() * 1000 - 500}px, -${
+                      Math.random() * 300
+                    }px)`
+              }`,
               left: `calc(50% - ${svgX[i]}px)`,
               top: `calc(50% - ${svgY[i]}px)`,
             }}
-            className='data'
+            className={`data `}
           ></div>
         );
       })}
       <div className='scene'>
-        <div ref={cubeRef} className='cube'>
+        <div ref={cubeRef} className={`cube ${paint ? "" : "animate-cube"}`}>
           <div className='cube__face cube__face--front'></div>
           <div className='cube__face cube__face--back'></div>
           <div className='cube__face cube__face--right'></div>
@@ -90,7 +124,7 @@ const Cube = ({
       .data{
         position: absolute;
         
-        animation: center 3s forwards;
+        animation: center ${index < 2 ? "1.5" : ".5"}s forwards;
      
       }
 @keyframes center {
@@ -106,20 +140,33 @@ const Cube = ({
 }
       .container{
         position: relative;
+      
       }
 
-      svg{
+      svg {
         position: absolute;
        z-index: 1;
-  
-     
+      //  background-color: white;
+      //  opacity: 0.3;
+
+ bottom: 0;
+
        transform: ${
          rightHanded
-           ? `translate(-${
-               svgWidth - cubeMargin - cubeRect.width / 2 || 0
-             }px,-${yTop}px)`
-           : `translate(${xMiddle}px, -${yTop}px)`
+           ? `translate(-${containerRect.width / 2}px,-${
+               (containerRect.height + cubeRect.height) / 2
+             }px)`
+           : `translate(${containerRect.width / 2}px, -${
+               (containerRect.height + cubeRect.height) / 2
+             }px)`
        } ;
+      }
+
+      .right-svg{
+        right:0;
+      }
+      .left-svg{
+left:0;
       }
         .path {
           stroke-dasharray: 1000;
@@ -128,8 +175,8 @@ const Cube = ({
         }
 
         .right{
-          animation-delay: 2s;
-          animation-duration: 1s;
+          animation-delay: ${index < 2 ? "1" : ".3"};
+          animation-duration: ${index < 2 ? ".5" : ".2"}s;
         }
         @keyframes dash {
           from {
@@ -158,9 +205,12 @@ const Cube = ({
           transform: translateZ(-${side / 2}px)
           transition: transform 1s;
 position: relative;
-           animation: spin 3s linear forwards;
+      
         }
-
+        
+        .animate-cube{
+          animation: spin ${index < 2 ? "1.5" : ".5"}s linear forwards;
+        }
     
         @keyframes spin {
             0% {
@@ -212,7 +262,7 @@ position: relative;
             left:50%;
             transform: translate(-50%, -50%);
             border: 3px solid purple;
-            animation: border-grow 3s linear forwards;
+            animation: border-grow 1.5s linear forwards;
           box-sizing: border-box;
         }
 

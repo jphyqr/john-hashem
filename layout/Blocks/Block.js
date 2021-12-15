@@ -1,43 +1,95 @@
 import React, { useRef } from "react";
 import { useRect } from "../../hooks/useRect";
 import Cube from "./Cube";
-const Block = ({ data, index, length, appear, ...props }) => {
+const Block = ({ data, index, animationDone, length, appear, ...props }) => {
   const rightHand = index % 2 === 1 ? true : false;
-  if (!appear) return <div></div>;
+  if (!appear && !animationDone) return <div></div>;
   return (
-    <div className={`block ${appear ? "appear" : "hide"}`}>
-      <div className={`data-container `}>
-        {data.h1 && (
-          <h1 className={rightHand ? "right-hand" : "left-hand"}>{data.h1}</h1>
-        )}
-        {data.h2 && (
-          <h2 className={`delay ${rightHand ? "right-hand" : "left-hand"}`}>
-            {data.h2}
-          </h2>
+    <div className={`block ${appear || animationDone ? "appear" : "hide"}`}>
+      <div className='vs-30' />
+      {data.h1 && (
+        <h1
+          className={
+            data.header ? "header" : rightHand ? "right-hand" : "left-hand"
+          }
+        >
+          {data.h1}
+        </h1>
+      )}
+      <div className={`row`}>
+        <div className='data-container'>
+          <ul>
+            {data.ul?.map((li, i) => {
+              return (
+                <li
+                  className={`${
+                    rightHand ? "step-slide-in-right" : "step-slide-in-left"
+                  }`}
+                  key={i}
+                >
+                  {li}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {(appear || animationDone) && !data.header && (
+          <div className={`cube-container`}>
+            <Cube
+              animationDone={animationDone}
+              paint={false}
+              svgX={data.svgX || []}
+              svgY={data.svgY}
+              index={index}
+              rightHanded={index % 2 === 0 || data.header}
+              side={50}
+              {...props}
+            />
+          </div>
         )}
       </div>
-      {appear && (
-        <div className={`cube-container`}>
-          <Cube
-            svgX={data.svgX || []}
-            svgY={data.svgY}
-            index={index}
-            side={50}
-            {...props}
-          />
-        </div>
-      )}
 
       <style jsx>{`
+        .vs-30 {
+          height: 50px;
+        }
+        h1 {
+          font-size: 50px;
+        }
         h1,
-        h2 {
+        h2,
+        li {
           transform: ${rightHand ? "translateX(100%)" : "translateX(-100%)"};
         }
 
-        .left-hand {
+        li:nth-child(1) {
+          --nth-child: 1;
+        }
+        li:nth-child(2) {
+          --nth-child: 2;
+        }
+        li:nth-child(3) {
+          --nth-child: 3;
+        }
+
+        .header {
+          width: 100%;
+          text-align: center;
+        }
+
+        .left-hand,
+        .header {
           animation: slide-in-left 0.4s linear forwards;
         }
 
+        .step-slide-in-left {
+          animation: slide-in-left 0.3s linear forwards;
+          animation-delay: calc(var(--nth-child) * 0.1s);
+        }
+        .step-slide-in-right {
+          animation: slide-in-right 0.4s linear forwards;
+          animation-delay: calc(var(--nth-child) * 0.1s);
+        }
         .right-hand {
           animation: slide-in-right 0.4s linear forwards;
         }
@@ -69,6 +121,13 @@ const Block = ({ data, index, length, appear, ...props }) => {
           align-items: center;
           justify-content: center;
         }
+        .data-container {
+          width: 50%;
+        }
+        .cube-container {
+          width: 50%;
+        }
+
         .right {
           flex-order: 0;
         }
@@ -80,10 +139,22 @@ const Block = ({ data, index, length, appear, ...props }) => {
         }
         .block {
           display: flex;
-          flex-direction: ${index % 2 === 0 ? "row" : "row-reverse"};
-          justify-content: space-between;
+          flex-direction: column;
           width: 100%;
           min-height: 200px;
+        }
+        .row {
+          width: 100%;
+          align-items: center;
+          display: flex;
+          flex-direction: ${index % 2 === 0 ? "row" : "row-reverse"};
+          justify-content: space-evenly;
+        }
+
+        h1 {
+          text-align: ${index % 2 === 0 ? "start" : "end"};
+          margin: 0;
+          padding: 0;
         }
 
         .appear {
