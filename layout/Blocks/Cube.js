@@ -10,6 +10,9 @@ const Cube = ({
   setCubeRefs,
   paint,
   rightHanded,
+  velocity,
+  vision,
+  validate,
   previousBlockPosition,
 }) => {
   let cubeRef = useRef();
@@ -58,7 +61,10 @@ const Cube = ({
     : previousBlockPosition?.left - cubeRect?.left;
 
   return (
-    <div ref={containerRef} className='container'>
+    <div
+      ref={containerRef}
+      className={`container-cube ${vision ? "vision" : ""}`}
+    >
       <svg
         className={rightHanded ? "right-svg" : "left-svg"}
         height={svgHeight}
@@ -106,12 +112,17 @@ const Cube = ({
               left: `calc(50% - ${svgX[i]}px)`,
               top: `calc(50% - ${svgY[i]}px)`,
             }}
-            className={`data `}
+            className={`data ${validate ? "validate" : ""}`}
           ></div>
         );
       })}
       <div className='scene'>
-        <div ref={cubeRef} className={`cube ${paint ? "" : "animate-cube"}`}>
+        <div
+          ref={cubeRef}
+          className={`cube ${
+            paint ? "" : velocity ? "animate-cube-continuous" : "animate-cube"
+          }`}
+        >
           <div className='cube__face cube__face--front'></div>
           <div className='cube__face cube__face--back'></div>
           <div className='cube__face cube__face--right'></div>
@@ -138,9 +149,21 @@ const Cube = ({
     opacity: .7;
   }
 }
-      .container{
+      .container-cube{
         position: relative;
       
+      }
+
+      .vision:before{
+        content: "";
+        position: absolute;
+        left: -20px;
+        top: -20px;
+        right: -20px;
+        bottom: -20px;
+        border: 1px solid grey;
+        border-radius: 50%;
+        animation: pulsing 1s linear infinite;
       }
 
       svg {
@@ -211,6 +234,10 @@ position: relative;
         .animate-cube{
           animation: spin ${index < 2 ? "1.5" : ".5"}s linear forwards;
         }
+        .animate-cube-continuous{
+          animation: spin-continuous ${3.5}s 3s linear infinite;
+          
+        }
     
         @keyframes spin {
             0% {
@@ -218,6 +245,15 @@ position: relative;
             }
             
             100% {
+              transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg);
+            }
+          }
+
+          @keyframes spin-continuous {
+            0% {
+              transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+            } 
+            20%, 100% {
               transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg);
             }
           }
@@ -320,6 +356,83 @@ position: relative;
         label {
           margin-right: 10px;
         }
+
+.validate{
+  overflow:hidden;
+}
+        .validate:before{
+          content: "";
+          position: absolute;
+          left: 0;
+          top:0;
+          width: 100%;
+          height: 100%;
+         
+        
+     
+        }
+        .validate:nth-child(0):before{
+          animation: shimmy 3.3s 2s linear infinite;
+        }
+        .validate:nth-child(1):before{
+          animation: shimmy 3.3s 2s linear infinite;
+        }
+        .validate:nth-child(2):before{
+          animation: shimmy 3.3s 2.3s linear infinite;
+        }
+        .validate:nth-child(3):before{
+          animation: shimmy 3.3s 2.4s linear infinite;
+        }
+        .validate:nth-child(4):before{
+          animation: shimmy 3.3s 2.5s linear infinite;
+        }
+        .validate:nth-child(5):before{
+          animation: shimmy 3.3s 2.6s linear infinite;
+        }
+        .validate:nth-child(6):before{
+          animation: shimmy 3.3s 2.7s linear infinite;
+        }
+        .validate:nth-child(7):before{
+          animation: shimmy 3.3s 2.8s linear infinite;
+        }
+        .validate:nth-child(8):before{
+          animation: shimmy 3.3s 2.9s linear infinite;
+        }
+     
+        @keyframes shimmy {
+       0%{
+         background-color: grey;
+       }
+       5%{
+         background-color: white;
+       }
+       6%, 100%{
+         background-color: grey;
+       }
+       100{
+         background-color: grey;
+       }
+          
+        
+        }
+
+        @keyframes pulsing {
+          0% {
+            transform: scale(0.5);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(2);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(2.4);
+            opacity: 0;
+          }
+        }
+
+
+
       `}</style>
     </div>
   );

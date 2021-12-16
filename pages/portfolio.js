@@ -11,64 +11,47 @@ const Portfolio = () => {
     purple: "#ab66ff",
   };
 
-  const blocks = [
+  const value_blocks = [
     {
+      vision: true,
       h1: "VISION",
-      ul: ["trend analysis", "user modeling", "web branding"],
 
       svgX: [20, 10, 0, -10, -20, 10, 0, -10, -2.5, 2.5, -2.5, 2.5],
       svgY: [0, 7.5, 10, 7.5, 0, -7.5, -10, -7.5, -2.5, 2.5, 2.5, -2.5],
     },
     {
       h1: "VALIDATE",
-      ul: [
-        "validated learning",
-        "A/B testing",
-        "24 Hour MVPS",
-        "Live Web Studies",
-        "more stuff",
-        "validated learning",
-        "A/B testing",
-        "24 Hour MVPS",
-        "Live Web Studies",
-        "more stuff",
-      ],
+      validate: true,
       svgX: [15, 10, 5, 0, -5, -10, -15],
       svgY: [0, -7.5, -15, -7.5, 0, 7.5, 15],
     },
     {
       h1: "VELOCITY",
-
+      velocity: true,
       svgX: [15, 5, -5, -15, -5, 5, -15, -15],
       svgY: [-15, -5, 5, 15, 15, 15, 5, -5],
     },
-
+  ];
+  const service_blocks = [
     {
       h1: "SEO",
       ul: [
-        "validated learning",
-        "A/B testing",
-        "24 Hour MVPS",
-        "Live Web Studies",
-        "more stuff",
-        "validated learning",
-        "A/B testing",
-        "24 Hour MVPS",
-        "Live Web Studies",
-        "more stuff",
+        "server rendered pages",
+        "engagement driving custom user tools",
+        "niche copy",
       ],
       svgX: [20, 10, 0, -10, -20, 10, 0, -10, -2.5, 2.5, -2.5, 2.5],
       svgY: [0, 7.5, 10, 7.5, 0, -7.5, -10, -7.5, -2.5, 2.5, 2.5, -2.5],
     },
     {
       h1: "DIGITAL",
-
+      ul: ["ad creation"],
       svgX: [15, 10, 5, 0, -5, -10, -15],
       svgY: [0, -7.5, -15, -7.5, 0, 7.5, 15],
     },
     {
       h1: "UI/UX",
-
+      ul: ["Graphics, Logos, Spinners"],
       svgX: [15, 5, -5, -15, -5, 5, -15, -15],
       svgY: [-15, -5, 5, 15, 15, 15, 5, -5],
     },
@@ -105,12 +88,17 @@ const Portfolio = () => {
       {/* <h1>Portfolio</h1>
       <h2>Advanced website building</h2>
       <p>I am a web developer in Los Angeles</p> */}
-      <h1>CUSTOM SITES</h1>
-      <h2>built with the future in mind</h2>
-      <BlockManager blocks={blocks} animateCount={6} />
+      <h1>Values</h1>
+      <BlockManager blocks={value_blocks} animateCount={6} />
 
+      <div className='spacer-vh' />
+      <h1>Services</h1>
+      <BlockManager blocks={service_blocks} animateCount={0} />
       <footer></footer>
       <style jsx>{`
+        .spacer-vh {
+          height: 100vh;
+        }
         hr {
           margin-top: 100px;
           margin-bottom: 100px;

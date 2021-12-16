@@ -6,7 +6,7 @@ const Block = ({ data, index, animationDone, length, appear, ...props }) => {
   if (!appear && !animationDone) return <div></div>;
   return (
     <div className={`block ${appear || animationDone ? "appear" : "hide"}`}>
-      <div className='vs-30' />
+      {/* <div className='vs-10' />
       {data.h1 && (
         <h1
           className={
@@ -15,9 +15,10 @@ const Block = ({ data, index, animationDone, length, appear, ...props }) => {
         >
           {data.h1}
         </h1>
-      )}
+      )} */}
       <div className={`row`}>
         <div className='data-container'>
+          <h3>{data.h1}</h3>
           <ul>
             {data.ul?.map((li, i) => {
               return (
@@ -36,6 +37,9 @@ const Block = ({ data, index, animationDone, length, appear, ...props }) => {
         {(appear || animationDone) && !data.header && (
           <div className={`cube-container`}>
             <Cube
+              vision={data.vision ? true : false}
+              validate={data.validate ? true : false}
+              velocity={data.velocity ? true : false}
               animationDone={animationDone}
               paint={false}
               svgX={data.svgX || []}
@@ -48,7 +52,7 @@ const Block = ({ data, index, animationDone, length, appear, ...props }) => {
           </div>
         )}
       </div>
-
+      <div className='vs-30' />
       <style jsx>{`
         .vs-30 {
           height: 50px;
